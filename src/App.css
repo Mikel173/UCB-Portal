@@ -41,3 +41,10 @@ h1{
   max-width: 100%; /* La imagen se ajustará al ancho del contenedor */
   height: auto; /* La altura se ajustará automáticamente para mantener la proporción original */
 }
+
+.card-container {
+  margin-bottom: 20px;
+  margin-top: 50px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
