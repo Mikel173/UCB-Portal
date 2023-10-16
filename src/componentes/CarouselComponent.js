@@ -14,31 +14,25 @@ function CarouselComponent() {
   return (
     <Carousel activeIndex={index} onSelect={handleSelect}>
       
-      <Carousel.Item>
-        <div className="image-container">
-            <CarouselImages text="First slide" 
-            imageUrl={require('../imagenes/Carousel1.png')} />
-        </div>
+      <Carousel.Item>      
+        <CarouselImages text="First slide" 
+        imageUrl={require('../imagenes/Carousel1.png')} />
         <Carousel.Caption>
           <h3>   </h3>
         </Carousel.Caption>
       </Carousel.Item>
 
       <Carousel.Item>
-        <div className="image-container">
-            <CarouselImages text="Second slide"  
-            imageUrl={require('../imagenes/Carousel2.png')} />
-        </div>
+        <CarouselImages text="Second slide"  
+        imageUrl={require('../imagenes/Carousel2.png')} />
         <Carousel.Caption>
           <h3>  </h3>
         </Carousel.Caption>
       </Carousel.Item>
 
       <Carousel.Item>
-        <div className="image-container">
-            <CarouselImages text="Second slide"  
-            imageUrl={require('../imagenes/Carousel3.png')} />
-        </div>
+        <CarouselImages text="Second slide"  
+        imageUrl={require('../imagenes/Carousel3.png')} />
         <Carousel.Caption>
           <h3>  </h3>
         </Carousel.Caption>
