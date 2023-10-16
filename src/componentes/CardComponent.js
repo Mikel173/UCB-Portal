@@ -11,12 +11,12 @@ function CardComponent(props) {
           <Card.Text>
             {props.description}
           </Card.Text>
-          <Button variant="primary">Go somewhere</Button>
+          <Button variant="primary">Ver evento</Button>
         </Card.Body>
       </Card>
     );
   }
   
-  export default CardComponent;
+export default CardComponent;
 
 

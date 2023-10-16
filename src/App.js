@@ -3,6 +3,8 @@ import CarouselComponent from './componentes/CarouselComponent';
 import CardComponent from './componentes/CardComponent';
 import React, { Component } from 'react';
 import {ServicioEventos} from './servicios/ServicioEventos';
+import NavbarComponent from './componentes/Navbar';
+import { Container } from 'react-bootstrap';
 
 export default class App extends Component {
   constructor(){
@@ -20,13 +22,17 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
+        <NavbarComponent className="navbar"/>
         <div className='contenedor-principal'>
-          <h1>Navbar xd </h1>
-
+        
           <div className="image-container">
             <CarouselComponent />
           </div>          
           
+          <Container className='titulos'>
+            <h2>Próximos eventos</h2>
+          </Container>
+
           {this.state.events && this.state.events.map(event => (
             <div key={event.eventoId} className="card-container">
               <CardComponent
@@ -36,6 +42,7 @@ export default class App extends Component {
                 description={event.descripcion}
               />
             </div>
+
           ))}
         </div>
       </div>
