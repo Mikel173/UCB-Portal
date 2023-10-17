@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
-function CardComponent(props) {
+function CardNews(props) {
     return (
       <Card style={{ width: '18rem' }}>
         {/*<Card.Img variant='top' src={require('../imagenes/Card1.png')}/>*/}
@@ -11,12 +11,12 @@ function CardComponent(props) {
           <Card.Text>
             {props.description}
           </Card.Text>
-          <Button variant="primary">Ver evento</Button>
+          <Button variant="primary">Ver noticia</Button>
         </Card.Body>
       </Card>
     );
   }
   
-export default CardComponent;
+export default CardNews;
 
 
