@@ -8,6 +8,16 @@ body {
   background-color: rgb(255, 255, 255);
 }
 
+h2 {
+  font-family: 'Oswald', sans-serif;
+  /* Otros estilos para h2, como color, tamaño de fuente, etc. */
+}
+
+h4 {
+  font-family: 'Oswald', sans-serif;
+  /* Otros estilos para h4, como color, tamaño de fuente, etc. */
+}
+
 .titulos {
   align-content: center;
   margin-top: 20px;

@@ -12,7 +12,6 @@ function App() {
       <div>
         <Routes>
           <Route path="/" element={<Inicio/>} /> 
-          <Route path="/inicio" element={<Inicio/>} />
           <Route path="/secciones-academicas" element={<SeccionesAcademicas/>} /> 
           <Route path="/admision-y-becas" element={<AdmisionYBecas/>} /> 
           <Route path="/plataforma-en-linea" element={<PlataformaEnLinea/>} /> 

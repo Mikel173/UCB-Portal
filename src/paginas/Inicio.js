@@ -7,6 +7,7 @@ import CarouselComponent from '../componentes/CarouselComponent';
 import CardComponent from '../componentes/CardComponent';
 import CardNews from '../componentes/CardNews';
 
+
 class Inicio extends Component {
   constructor() {
     super();
@@ -34,7 +35,8 @@ class Inicio extends Component {
       <div className="App">
         <NavbarComponent className="navbar" />
         <div className="contenedor-principal">
-          <div className="image-container">
+
+        <div className="image-container" style={{ width: '100%', height: '50%'}}>
             <CarouselComponent />
           </div>
 

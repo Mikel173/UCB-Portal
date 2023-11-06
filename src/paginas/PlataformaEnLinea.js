@@ -7,7 +7,7 @@ const PlataformaEnLinea = () => {
     return (
         <div>
             <NavbarComponent />
-            <ImagePanel />
+            <ImagePanel title="Plataforma de Aprendizaje en Línea" />
             <Panel />
             {/* Contenido de la página de Plataforma en Línea */}
             <div className="container mt-5">
