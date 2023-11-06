@@ -13,7 +13,7 @@ function NavbarComponent() {
         <Container style={{ width: '100%px' }}>
             <img src={require('../imagenes/Cato-logo.png')} alt="Logo" className="navbar-logo" />
           <Nav className="me-auto">
-            <Nav.Link href="#inicio" className="navbar-link">Inicio</Nav.Link>
+            <Nav.Link href="/" className="navbar-link">Inicio</Nav.Link>
             <NavDropdown title="Academico" id="basic-nav-dropdown">
               <NavDropdown.Item as={Link} to="/secciones-academicas">Secciones academicas</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/admision-y-becas">Admision y becas</NavDropdown.Item>
