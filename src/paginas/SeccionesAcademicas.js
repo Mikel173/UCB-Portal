@@ -1,11 +1,10 @@
 import React from 'react';
+import NavbarComponent from '../componentes/Navbar';
 
 const SeccionesAcademicas = () => {
   return (
     <div>
-      <h1>Secciones Académicas</h1>
-      {/* Contenido de la página de Secciones Académicas */}
-      
+      <NavbarComponent className="navbar" />
     </div>
   );
 }
