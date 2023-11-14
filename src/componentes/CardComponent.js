@@ -1,5 +1,5 @@
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Container from 'react-bootstrap/Container';
 
 function CardComponent(props) {
     return (
@@ -7,11 +7,12 @@ function CardComponent(props) {
         <Card.Img variant='top' src={require('../imagenes/Card1.png')}/>
        {/* <Card.Img variant='top' src={require(`../imagenes/Card${props.uwu}.png`)}/>*/}
         <Card.Body>
-          <Card.Title>{props.title}</Card.Title>
+          <Container className="titulos">
+          <h4><Card.Title>{props.title}</Card.Title></h4>
+          </Container>
           <Card.Text>
             {props.description}
           </Card.Text>
-          <Button variant="primary">Ver evento</Button>
         </Card.Body>
       </Card>
     );

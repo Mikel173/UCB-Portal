@@ -3,6 +3,7 @@ import NavbarComponent from '../componentes/Navbar';
 import ImagePanel from '../componentes/ImagePanel/ImagePanel';
 import '../App.css';
 
+
 const estiloContenedor = {
   textAlign: 'left', // Alinea el texto a la izquierda
   fontFamily: 'Roboto, sans-serif', // Fuente para los párrafos
