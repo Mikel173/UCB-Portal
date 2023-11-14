@@ -18,6 +18,11 @@ h4 {
   /* Otros estilos para h4, como color, tamaño de fuente, etc. */
 }
 
+h5 {
+  font-family: 'Oswald', sans-serif;
+  /* Otros estilos para h4, como color, tamaño de fuente, etc. */
+}
+
 .titulos {
   align-content: center;
   margin-top: 20px;
