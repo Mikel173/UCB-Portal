@@ -84,3 +84,40 @@ h5 {
 /* navbar.css */
 
 
+/* CSS de la clase componentes*/
+
+.body-styling {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.componente {
+  width: 30%;
+  margin: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.componente img {
+  width: 100%;
+  height: 350px;
+  display: block;
+}
+
+.componente .descripcion {
+  padding: 15px;
+  /* background-color: #f4f4f4; */
+}
+
+.componente .Subtitulos {
+  font-family: 'Oswald', sans-serif;
+  color: #004070;
+  padding: 15px;
+  text-align: center; /* Para centrar el texto */
+}
