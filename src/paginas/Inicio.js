@@ -33,7 +33,7 @@ class Inicio extends Component {
   render() {
     return (
       <div className="App">
-        <NavbarComponent className="navbar" />
+        {/* <NavbarComponent className="navbar" /> */}
         <div className="contenedor-principal">
 
         <div className="image-container" style={{ width: '100%', height: '50%'}}>

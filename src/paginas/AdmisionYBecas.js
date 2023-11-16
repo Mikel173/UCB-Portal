@@ -22,7 +22,7 @@ const estiloEncabezado = {
 const AdmisionYBecas = () => {
   return (
     <div>
-      <NavbarComponent className="navbar" />
+      {/* <NavbarComponent className="navbar" /> */}
       <ImagePanel title="Admision y Becas"/>
 
       <div style={estiloContenedor}>

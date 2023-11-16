@@ -6,7 +6,7 @@ import Panel from '../componentes/Panel/Panel';
 const PlataformaEnLinea = () => {
     return (
         <div>
-            <NavbarComponent />
+            {/* <NavbarComponent /> */}
             <ImagePanel title="Plataforma de Aprendizaje en Línea" />
             <Panel />
             {/* Contenido de la página de Plataforma en Línea */}

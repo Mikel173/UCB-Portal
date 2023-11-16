@@ -4,7 +4,7 @@ import NavbarComponent from '../componentes/Navbar';
 const SeccionesAcademicas = () => {
   return (
     <div>
-      <NavbarComponent className="navbar" />
+      {/* <NavbarComponent className="navbar" /> */}
     </div>
   );
 }
