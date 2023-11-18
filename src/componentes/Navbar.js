@@ -27,6 +27,7 @@ function NavbarComponent() {
             {/* Recursos */}
             <NavDropdown title="Recursos" id="basic-nav-dropdown">
               <NavDropdown.Item as={Link} to="/recursos-estudiantes">Recursos Estudiantes</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/recursos-servicio">Recursos Servicio</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/recursos-docentes">Recursos Docentes</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/portal-egresados">Portal de Egresados</NavDropdown.Item>
             </NavDropdown>

@@ -121,3 +121,23 @@ h5 {
   padding: 15px;
   text-align: center; /* Para centrar el texto */
 }
+
+.componenteSO {
+  width: 45%;
+  margin: 35px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.componenteSO .descripcion {
+  padding: 100px;
+  /* background-color: #f4f4f4; */
+}
+
+.componente .Subtitulos {
+  font-family: 'Oswald', sans-serif;
+  color: #004070;
+  padding: 15px;
+  text-align: center; /* Para centrar el texto */
+}
