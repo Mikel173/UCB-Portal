@@ -1,0 +1,48 @@
+
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+
+/* styles.css */
+.image-panel {
+  position: relative;
+  text-align: center;
+  margin-top: -85px;
+  margin-bottom: 40px;
+  width: 100%;
+  max-width: 100%;
+  height: 200px;
+  background-color: lightgray; /* Solo como ejemplo */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  box-sizing: border-box; /* Incluye relleno y bordes en el ancho */
+}
+
+
+
+.panel-title {
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra del texto */
+  padding: 10px;
+  position: absolute;
+  top: 50%; /* Ajusta la posición verticalmente */
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+/* styles.css */
+.panel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  
+}
+

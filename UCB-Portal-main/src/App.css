@@ -1,0 +1,86 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+html, 
+body {
+  font-size: 18px;
+  background-color: rgb(255, 255, 255);
+}
+
+h2 {
+  font-family: 'Oswald', sans-serif;
+  /* Otros estilos para h2, como color, tamaño de fuente, etc. */
+}
+
+h4 {
+  font-family: 'Oswald', sans-serif;
+  /* Otros estilos para h4, como color, tamaño de fuente, etc. */
+}
+
+h5 {
+  font-family: 'Oswald', sans-serif;
+  /* Otros estilos para h4, como color, tamaño de fuente, etc. */
+}
+
+.titulos {
+  align-content: center;
+  margin-top: 20px;
+  color: #0441b3;
+  font-size: 10px;
+}
+
+.App{
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.contenedor-principal{
+  min-width: 600px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-container {
+  text-align: center; /* Para centrar la imagen horizontalmente */
+}
+
+.image-container img {
+  max-width: 100%; /* La imagen se ajustará al ancho del contenedor */
+  height: auto; /* La altura se ajustará automáticamente para mantener la proporción original */
+}
+
+.card-container {
+  margin-bottom: 20px;
+  margin-top: 50px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.navbar {
+  font-size: 18px;
+  font-family:  Lato, sans-serif;
+  width: 100%;
+  height: 90px;
+  text-align: center;
+}
+
+.navbar-logo {
+  width: 200px; /* Ajusta el ancho según tus necesidades */
+  height: auto; /* Esto mantiene la proporción original de la imagen */
+  margin-right: 45%; /* Ajusta el margen derecho según tus necesidades */
+}
+
+/* navbar.css */
+.custom-bg {
+  background-color: #141a4e; /* Cambia esto al color que desees */
+}
+/* navbar.css */
+
+
