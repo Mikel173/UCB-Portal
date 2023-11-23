@@ -1,5 +1,4 @@
 import React from 'react';
-import NavbarComponent from '../componentes/Navbar';
 import Container from 'react-bootstrap/Container';
 
 class PortalEgresados extends React.Component {
@@ -37,9 +36,7 @@ class PortalEgresados extends React.Component {
     const { revista, podcast } = this.state;
 
     return (
-      <div className="App">
-        <NavbarComponent className="navbar" />
-
+      <div>
         <div className="contenedor-principal" style={{
           display: 'flex',
           justifyContent: 'space-around',
