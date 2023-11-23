@@ -4,8 +4,10 @@ export class ServicioEventos {
   baseUrl = "http://localhost:8080/api/v1/";
 
   getAll() {
-
-    return axios.get(this.baseUrl + "eventos/").then(res => res.data);
+    return axios.get(this.baseUrl + "eventos/").then((res) => res.data);
   }
 
+  postEvento(evento) {
+    return axios.post(this.baseUrl + "eventos/", evento).then((res) => res.data);
+  }
 }
