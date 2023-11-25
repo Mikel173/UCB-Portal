@@ -4,14 +4,8 @@ import PanelImage from '../../imagenes/panel.png' // Ruta a la imagen Panel.png
 
 function ImagePanel(props) {
   return (
-    <div className="container">
-      <nav className="navbar">
-        {/* Contenido del Navbar */}
-      </nav>
-      <div className="image-panel">
-        <h1 className="panel-title">{props.title}</h1>
-        <img src={PanelImage} alt="Imagen del panel" className="panel-image" />
-      </div>
+    <div className="containersub">
+      <h2 className='h2conteiner'>{props.title}</h2>
     </div>
   );
 }
