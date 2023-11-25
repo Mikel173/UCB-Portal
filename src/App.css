@@ -64,23 +64,88 @@ h5 {
 }
 
 .navbar {
-  font-size: 18px;
-  font-family:  Lato, sans-serif;
+  font-size: 16px;
+  font-family: Lato, sans-serif;
   width: 100%;
-  height: 90px;
+  height: auto; /* Cambia de 90px a auto */
   text-align: center;
 }
 
+
+
+.navbar-toggler-icon {
+  color: white; /* Cambia el color del icono de la hamburguesa */
+}
+
+.navbar-brand {
+  margin-right: 0; /* Ajusta el margen derecho según tus necesidades */
+}
+
+.navbar-nav {
+  text-align: center; /* Centra los elementos en dispositivos móviles */
+}
+
+.navbar-collapse {
+  justify-content: center; /* Centra el contenido del navbar en dispositivos móviles */
+}
+
+.navbar-toggler {
+  border: none; /* Elimina el borde del botón de la hamburguesa */
+  outline: none; /* Elimina el contorno del botón de la hamburguesa */
+}
+
+.custom-bg {
+  background-color: #141a4e;
+}
+
+/* Agrega un estilo para el fondo del menú desplegable */
+.navbar-collapse {
+  background-color: #141a4e;
+  padding-top: 10px; /* Espaciado superior en el menú desplegable */
+  padding-bottom: 10px; /* Espaciado inferior en el menú desplegable */
+}
+
+.navbar-nav .nav-link {
+  padding: 10px 15px;
+}
+
+.navbar-nav .nav-item .nav-link {
+  font-size: 16px;
+}
+
+/* Agrega un estilo para el enlace activo en el menú */
+.navbar-nav .nav-item .nav-link.active {
+  color: #ffffff; /* Cambia el color del enlace activo */
+}
+
+/* Ajusta los estilos para dispositivos más pequeños */
+@media (max-width: 767px) {
+  .navbar-toggler {
+    margin-top: 5px; /* Ajusta el espacio superior del botón de la hamburguesa */
+  }
+}
+
 .navbar-logo {
-  width: 200px; /* Ajusta el ancho según tus necesidades */
+  width: 150px; /* Ajusta el ancho según tus necesidades */
   height: auto; /* Esto mantiene la proporción original de la imagen */
-  margin-right: 45%; /* Ajusta el margen derecho según tus necesidades */
+  margin-right: 10px; /* Ajusta el margen derecho según tus necesidades */
+}
+
+/* Puedes agregar estilos específicos para el NavDropdown */
+.navbar-nav .nav-link {
+  padding: 10px 15px; /* Ajusta el espaciado interno según tus necesidades */
+}
+
+.navbar-nav .nav-item .nav-link {
+  font-size: 16px; /* Ajusta el tamaño del texto según tus necesidades */
 }
 
 /* navbar.css */
 .custom-bg {
   background-color: #141a4e; /* Cambia esto al color que desees */
 }
+
+
 /* navbar.css */
 
 
