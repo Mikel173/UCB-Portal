@@ -171,40 +171,27 @@ h5 {
 
 .componente img {
   width: 100%;
-  height: 350px;
+  height: auto; /* Cambiado a 'auto' para mantener la proporción de la imagen */
   display: block;
 }
 
 .componente .descripcion {
   padding: 15px;
-  /* background-color: #f4f4f4; */
 }
 
 .componente .Subtitulos {
   font-family: 'Oswald', sans-serif;
   color: #004070;
   padding: 15px;
-  text-align: center; /* Para centrar el texto */
+  text-align: center;
 }
 
-.componenteSO {
-  width: 45%;
-  margin: 35px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  box-sizing: border-box;
+/* Agregando una media query para hacer los componentes responsivos */
+@media (max-width: 768px) {
+  .componente {
+    width: 100%;
+  }
 }
 
-.componenteSO .descripcion {
-  padding: 100px;
-  /* background-color: #f4f4f4; */
-}
-
-.componente .Subtitulos {
-  font-family: 'Oswald', sans-serif;
-  color: #004070;
-  padding: 15px;
-  text-align: center; /* Para centrar el texto */
-}
 
 
