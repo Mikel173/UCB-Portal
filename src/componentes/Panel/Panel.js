@@ -13,7 +13,7 @@ const Panel = () => {
           <div className="feature">
             <h2>Entrega de Tareas en Línea</h2>
             <p></p>
-            <div className="image-container">
+            <div className="image-containerP">
               <img src={Laptop} alt="DELL Communication" className="image" />
               <div className="image-overlay">
                 <p>¡Facilidad en la Entrega de Tareas! Con NEO, podrás enviar tus trabajos y proyectos directamente desde cualquier lugar. Sube documentos, videos, presentaciones y más, ¡todo en un solo lugar!</p>
@@ -27,7 +27,7 @@ const Panel = () => {
           <div className="feature">
             <h2>Interacción Directa</h2>
             <p></p>
-            <div className="image-container">
+            <div className="image-containerP">
               <img src={neo} alt="Placeholder B" className="image" />
               <div className="image-overlay">
                 <p>Conéctate con tus Profesores en Tiempo Real. ¡Comunícate, haz preguntas y recibe respuestas rápidas! NEO facilita la interacción directa con tus profesores para aclarar dudas, discutir temas y obtener orientación académica</p>
@@ -39,7 +39,7 @@ const Panel = () => {
           <div className="feature">
             <h2>Seguimiento de Progreso</h2>
             <p></p>
-            <div className="image-container">
+            <div className="image-containerP">
               <img src={interaccion} alt="Placeholder C" className="image" />
               <div className="image-overlay">
                 <p>¡Controla tu Progreso Académico! NEO te ofrece un seguimiento personalizado de tus materias. Accede a informes, estadísticas y análisis de tu desempeño en cada asignatura, ¡todo para ayudarte a mejorar constantemente!</p>
