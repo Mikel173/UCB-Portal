@@ -62,6 +62,7 @@ class InicioAdmin extends Component {
                 key={event.eventoId}
                 title={event.nombre}
                 description={event.descripcion}
+                enlaceImagen={event.enlaceImagen}
               />
             </div>
           ))}
@@ -78,6 +79,7 @@ class InicioAdmin extends Component {
                 key={news.noticiaId}
                 title={news.titulo}
                 description={news.contenido}
+                enlaceImagen={news.enlaceImagen}
               />
             </div>
           ))}

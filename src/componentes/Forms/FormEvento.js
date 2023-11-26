@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ServicioEventos } from '../../servicios/ServicioEventos';
+import ServicioImagenes from '../../servicios/ServicioImagenes';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
@@ -11,31 +12,53 @@ const FormEvento = ({ onAgregarEvento, onCerrarFormulario }) => {
     descripcion: '',
   });
 
+  const [archivo, setArchivo] = useState(null);
+  const [error, setError] = useState(null); // Nuevo estado para manejar errores
   const servicioEventos = new ServicioEventos();
+  const servicioImagenes = new ServicioImagenes();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNuevoEvento({ ...nuevoEvento, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleArchivoChange = (e) => {
+    const file = e.target.files[0];
+    setArchivo(file);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    servicioEventos.postEvento(nuevoEvento)
-      .then((data) => {
-        setNuevoEvento({
-          nombre: '',
-          fechaInicio: '',
-          fechaFin: '',
-          descripcion: '',
-        });
+    try {
+      // Subir el archivo al nuevo servicio de imágenes
+      const enlaceImagen = await servicioImagenes.uploadImagen(archivo);
 
-        onAgregarEvento();
-        onCerrarFormulario();
-      })
-      .catch((error) => {
-        console.error("Error al agregar evento:", error);
+      // Crear el evento
+      await servicioEventos.postEvento({
+        ...nuevoEvento,
+        enlaceImagen, // Incluir el enlace de la imagen en el evento
       });
+
+      // Limpiar el formulario y cerrar el modal
+      setNuevoEvento({
+        nombre: '',
+        fechaInicio: '',
+        fechaFin: '',
+        descripcion: '',
+      });
+      setArchivo(null);
+      setError(null); // Limpiar cualquier error anterior
+
+      // Actualizar la lista de eventos
+      onAgregarEvento();
+
+      // Cerrar el formulario
+      onCerrarFormulario();
+    } catch (error) {
+      console.error('Error al procesar el evento:', error);
+      setError('Error al procesar el evento. Por favor, inténtalo de nuevo.');
+    }
   };
 
   return (
@@ -59,6 +82,14 @@ const FormEvento = ({ onAgregarEvento, onCerrarFormulario }) => {
         Descripción:
         <textarea name="descripcion" value={nuevoEvento.descripcion} onChange={handleInputChange} required />
       </label>
+      <br />
+      {/* Nuevo campo para la imagen */}
+      <label>
+        Imagen:
+        <input type="file" accept="image/*" onChange={handleArchivoChange} />
+      </label>
+      <br />
+      {error && <p style={{ color: 'red' }}>{error}</p>} {/* Mostrar mensaje de error si existe */}
       <br />
       <Button variant="primary" type="submit">
         Agregar Evento
