@@ -9,13 +9,13 @@ class PortalEgresados extends React.Component {
       revista: {
         image: "https://i0.wp.com/lpz.ucb.edu.bo/wp-content/uploads/2023/05/Revista-UCB.png?resize=597%2C849&ssl=1",
         title: "Revista Alumni",
-        description: "Descripción breve de la Revista.",
+        description: "La revista Alumni UCB es una publicación dedicada a los graduados de la Universidad Católica Boliviana San Pablo. Su objetivo es destacar los logros de los exalumnos, resaltar su contribución a la reputación de la universidad y mantenerlos informados sobre las novedades de la institución.",
         link: "https://heyzine.com/flip-book/c267c80fc0.html"
       },
       podcast: {
         image: "https://i0.wp.com/lpz.ucb.edu.bo/wp-content/uploads/2023/05/Podcast-Alumni.jpg?resize=700%2C644&ssl=1",
         title: "Podcast Alumni",
-        description: "Descripción breve del Podcast.",
+        description: "Red Cato es el primer podcast dedicado a los ex alumnos de la Universidad Católica Boliviana San Pablo. Su objetivo es revincular a los ex alumnos a través de historias, anécdotas y recuerdos.",
         link: "https://open.spotify.com/show/4H10YHMAGfwZtCNVbc1nn9?si=c83a66e5531544a4"
       }
     };
