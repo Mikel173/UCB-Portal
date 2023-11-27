@@ -51,8 +51,8 @@ const FormScientificSocieties = ({ onAgregarSociedadCientifica, onCerrarFormular
           ...existingData,
           nombre,
           enlaceWeb,
-          carrera: carreraId, // Solo pasar el ID de carrera
-          contacto: contactoId, // Solo pasar el ID de contacto
+          carrera: {carreraId: carreraId}, // Solo pasar el ID de carrera
+          contacto: {contactoId: contactoId}, // Solo pasar el ID de contacto
           enlaceImagen,
         });
       } else {
@@ -60,8 +60,8 @@ const FormScientificSocieties = ({ onAgregarSociedadCientifica, onCerrarFormular
         await servicioSociedadesCientificas.postSociedadCientifica({
           nombre,
           enlaceWeb,
-          carrera: carreraId, // Solo pasar el ID de carrera
-          contacto: contactoId, // Solo pasar el ID de contacto
+          carrera: {carreraId: carreraId}, // Solo pasar el ID de carrera
+          contacto: {contactoId: contactoId}, // Solo pasar el ID de contacto
           enlaceImagen,
         });
       }
