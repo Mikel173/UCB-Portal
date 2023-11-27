@@ -7,7 +7,11 @@ export class ServicioGruposInvestigacion {
         return axios.get(this.baseUrl + "grupos/investigaciones/").then(res => res.data);
     }
 
-    postInstitutoInvestigacion(institutoInvestigacion) {
+    postGrupoInvestigacion(institutoInvestigacion) {
         return axios.post(this.baseUrl + "grupos/investigaciones/", institutoInvestigacion).then(res => res.data);
+    }
+
+    putGrupoInvestigacion(institutoInvestigacion) {
+        return axios.put(this.baseUrl + "grupos/investigaciones/", institutoInvestigacion).then(res => res.data);
     }
 }

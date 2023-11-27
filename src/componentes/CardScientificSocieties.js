@@ -8,8 +8,12 @@ function CardScientificSocieties(props) {
       <Card.Img variant='top' src={props.enlaceImagen} />
       <Card.Body>      
           <div className="titulos">
-          <h4><a href={props.enlaceWeb} target="_blank" rel="noopener noreferrer">{props.nombre}</a></h4>
-          </div>
+          {/* Verificar si hay un enlace antes de renderizar el componente <a> */}
+          {props.enlaceWeb ? (
+            <h4><a href={props.enlaceWeb} target="_blank" rel="noopener noreferrer">{props.nombre}</a></h4>
+          ) : (
+            <h4>{props.nombre}</h4>
+          )}</div>
           <Card.Text>
             <strong>Contacto:</strong> {props.contacto.nombre}
             <br />

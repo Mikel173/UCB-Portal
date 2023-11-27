@@ -10,4 +10,8 @@ export class ServicioSociedadesCientificas {
     postSociedadCientifica(sociedadCientifica) {
         return axios.post(this.baseUrl + "sociedades/cientificas/", sociedadCientifica).then(res => res.data);
     }
+
+    putSociedadCientifica(sociedadCientifica) {
+        return axios.put(this.baseUrl + "sociedades/cientificas/", sociedadCientifica).then(res => res.data);
+    }
 }

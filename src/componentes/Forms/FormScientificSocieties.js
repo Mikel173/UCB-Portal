@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { ServicioSociedadesCientificas } from '../../servicios/ServicioSociedadesCientificas';
 import ServicioImagenes from '../../servicios/ServicioImagenes';
 
-const FormScientificSocieties = ({ onAgregarSociedadCientifica, onCerrarFormulario }) => {
+const FormScientificSocieties = ({ onAgregarSociedadCientifica, onCerrarFormulario, existingData }) => {
   const [nombre, setNombre] = useState('');
   const [enlaceWeb, setEnlaceWeb] = useState('');
   const [carreraId, setCarreraId] = useState('');
@@ -14,6 +14,17 @@ const FormScientificSocieties = ({ onAgregarSociedadCientifica, onCerrarFormular
 
   const servicioSociedadesCientificas = new ServicioSociedadesCientificas();
   const servicioImagenes = new ServicioImagenes();
+
+  // Actualizar el estado del formulario si hay datos existentes
+  useEffect(() => {
+    if (existingData) {
+      setNombre(existingData.nombre);
+      setEnlaceWeb(existingData.enlaceWeb);
+      setCarreraId(existingData.carrera.carreraId); // Suponiendo que la propiedad 'id' existe en el objeto 'carrera'
+      setContactoId(existingData.contacto.contactoId); // Suponiendo que la propiedad 'id' existe en el objeto 'contacto'
+      setEnlaceImagen(existingData.enlaceImagen);
+    }
+  }, [existingData]);
 
   const handleArchivoChange = async (e) => {
     const file = e.target.files[0];
@@ -33,17 +44,27 @@ const FormScientificSocieties = ({ onAgregarSociedadCientifica, onCerrarFormular
     event.preventDefault();
 
     try {
-      // Crear la nueva sociedad científica
-      const nuevaSociedadCientifica = {
-        nombre,
-        enlaceWeb,
-        carrera: { carreraId }, // Usar el ID de carrera directamente
-        contacto: { contactoId }, // Usar el ID de contacto directamente
-        enlaceImagen,
-      };
-
-      // Llamar a la función para agregar la sociedad científica
-      await servicioSociedadesCientificas.postSociedadCientifica(nuevaSociedadCientifica);
+      // Determinar si estamos creando una nueva sociedad científica o actualizando una existente
+      if (existingData) {
+        // Actualizar la sociedad científica existente
+        await servicioSociedadesCientificas.putSociedadCientifica({
+          ...existingData,
+          nombre,
+          enlaceWeb,
+          carrera: carreraId, // Solo pasar el ID de carrera
+          contacto: contactoId, // Solo pasar el ID de contacto
+          enlaceImagen,
+        });
+      } else {
+        // Crear la nueva sociedad científica
+        await servicioSociedadesCientificas.postSociedadCientifica({
+          nombre,
+          enlaceWeb,
+          carrera: carreraId, // Solo pasar el ID de carrera
+          contacto: contactoId, // Solo pasar el ID de contacto
+          enlaceImagen,
+        });
+      }
 
       // Limpiar el formulario y cerrar el modal
       setNombre('');
@@ -55,7 +76,7 @@ const FormScientificSocieties = ({ onAgregarSociedadCientifica, onCerrarFormular
       onCerrarFormulario();
       onAgregarSociedadCientifica();
     } catch (error) {
-      console.error('Error al agregar la Sociedad Científica:', error);
+      console.error('Error al procesar la Sociedad Científica:', error);
       // Manejar el error aquí, puedes mostrar un mensaje al usuario si lo prefieres
     }
   };
@@ -108,7 +129,7 @@ const FormScientificSocieties = ({ onAgregarSociedadCientifica, onCerrarFormular
       </Form.Group>
 
       <Button variant="primary" type="submit">
-        Agregar Sociedad Científica
+        {existingData ? 'Actualizar Sociedad Científica' : 'Agregar Sociedad Científica'}
       </Button>
     </Form>
   );

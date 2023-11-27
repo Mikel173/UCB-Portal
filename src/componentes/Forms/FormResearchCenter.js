@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { ServicioCentrosInvestigacion } from '../../servicios/ServicioCentrosInvestigacion';
 import ServicioImagenes from '../../servicios/ServicioImagenes';
 
-const FormResearchCenter = ({ onAgregarCentroInvestigacion, onCerrarFormulario }) => {
+const FormResearchCenter = ({ onAgregarCentroInvestigacion, onCerrarFormulario, existingData }) => {
   const [nombre, setNombre] = useState('');
   const [enlaceWeb, setEnlaceWeb] = useState('');
   const [descripcion, setDescripcion] = useState('');
@@ -15,7 +15,18 @@ const FormResearchCenter = ({ onAgregarCentroInvestigacion, onCerrarFormulario }
   const servicioCentrosInvestigacion = new ServicioCentrosInvestigacion();
   const servicioImagenes = new ServicioImagenes();
 
-  const handleArchivoChange = async (e) => {
+  // Actualizar el estado del formulario si hay datos existentes
+  React.useEffect(() => {
+    if (existingData) {
+      setNombre(existingData.nombre);
+      setEnlaceWeb(existingData.enlaceWeb);
+      setDescripcion(existingData.descripcion);
+      setCarreraId(existingData.carrera.carreraId); // Suponiendo que la propiedad 'id' existe en el objeto 'carrera'
+      setContactoId(existingData.contacto.contactoId); // Suponiendo que la propiedad 'id' existe en el objeto 'contacto'
+    }
+  }, [existingData]);
+
+  const handleArchivoChange = (e) => {
     const file = e.target.files[0];
     setArchivo(file);
   };
@@ -24,22 +35,41 @@ const FormResearchCenter = ({ onAgregarCentroInvestigacion, onCerrarFormulario }
     event.preventDefault();
 
     try {
-        // No es necesario almacenar el enlace de la imagen aquí, ya que se obtendrá al subir la imagen
-      const enlaceImagen = await servicioImagenes.uploadImagen(archivo);
-      
-      
-      // Crear el nuevo centro de investigación
-      const nuevoCentroInvestigacion = {
+      // Subir la imagen y obtener el enlace si se selecciona un nuevo archivo
+      let enlaceImagen = existingData ? existingData.enlaceImagen : null; // Mantener el enlace existente si no hay nuevo archivo
+
+      if (archivo) {
+        enlaceImagen = await servicioImagenes.uploadImagen(archivo);
+      }
+
+      // Determinar si estamos creando un nuevo centro de investigación o actualizando uno existente
+      if (existingData) {
+        // Actualizar el centro de investigación existente
+        // Actualizar el centro de investigación existente
+      // Actualizar el centro de investigación existente
+      await servicioCentrosInvestigacion.putCentroInvestigacion({
+        ...existingData,
         nombre,
         enlaceWeb,
         descripcion,
-        carrera: { carreraId }, // Usar el ID de carrera directamente
-        contacto: { contactoId }, // Usar el ID de contacto directamente
+        carrera: {carreraId: carreraId}, // Solo pasar el ID de carrera
+        contacto: {contactoId: contactoId}, // Solo pasar el ID de contacto
         enlaceImagen,
-      };
+      });
+      
 
-      // Llamar a la función para agregar el centro de investigación
-      await servicioCentrosInvestigacion.postInstitutoInvestigacion(nuevoCentroInvestigacion);
+
+      } else {
+        // Crear el nuevo centro de investigación
+        await servicioCentrosInvestigacion.postCentroInvestigacion({
+          nombre,
+          enlaceWeb,
+          descripcion,
+          carrera: { carreraId: carreraId }, // Suponiendo que la propiedad 'id' es necesaria para la creación
+          contacto: { contactoId: contactoId }, // Suponiendo que la propiedad 'id' es necesaria para la creación
+          enlaceImagen,
+        });
+      }
 
       // Limpiar el formulario y cerrar el modal
       setNombre('');
@@ -51,7 +81,7 @@ const FormResearchCenter = ({ onAgregarCentroInvestigacion, onCerrarFormulario }
       onCerrarFormulario();
       onAgregarCentroInvestigacion();
     } catch (error) {
-      console.error('Error al agregar el Centro de Investigación:', error);
+      console.error('Error al procesar el Centro de Investigación:', error);
       // Manejar el error aquí, puedes mostrar un mensaje al usuario si lo prefieres
     }
   };
@@ -115,7 +145,7 @@ const FormResearchCenter = ({ onAgregarCentroInvestigacion, onCerrarFormulario }
       </Form.Group>
 
       <Button variant="primary" type="submit">
-        Agregar Centro de Investigación
+        {existingData ? 'Actualizar Centro de Investigación' : 'Agregar Centro de Investigación'}
       </Button>
     </Form>
   );

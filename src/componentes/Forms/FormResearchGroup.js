@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { ServicioGruposInvestigacion } from '../../servicios/ServicioGruposInvestigacion';
 import ServicioImagenes from '../../servicios/ServicioImagenes';
 
-const FormResearchGroup = ({ onAgregarGrupoInvestigacion, onCerrarFormulario }) => {
+const FormResearchGroup = ({ onAgregarGrupoInvestigacion, onCerrarFormulario, existingData }) => {
   const [nombre, setNombre] = useState('');
   const [enlaceWeb, setEnlaceWeb] = useState('');
   const [carreraId, setCarreraId] = useState('');
@@ -13,6 +13,16 @@ const FormResearchGroup = ({ onAgregarGrupoInvestigacion, onCerrarFormulario }) 
 
   const servicioGruposInvestigacion = new ServicioGruposInvestigacion();
   const servicioImagenes = new ServicioImagenes();
+
+  // Actualizar el estado del formulario si hay datos existentes
+  useEffect(() => {
+    if (existingData) {
+      setNombre(existingData.nombre);
+      setEnlaceWeb(existingData.enlaceWeb);
+      setCarreraId(existingData.carrera.carreraId); // Suponiendo que la propiedad 'id' existe en el objeto 'carrera'
+      setContactoId(existingData.contacto.contactoId); // Suponiendo que la propiedad 'id' existe en el objeto 'contacto'
+    }
+  }, [existingData]);
 
   const handleArchivoChange = async (e) => {
     const file = e.target.files[0];
@@ -23,19 +33,34 @@ const FormResearchGroup = ({ onAgregarGrupoInvestigacion, onCerrarFormulario }) 
     event.preventDefault();
 
     try {
-      const enlaceImagen = await servicioImagenes.uploadImagen(archivo);
-      
-      // Crear el nuevo grupo de investigación
-      const nuevoGrupoInvestigacion = {
-        nombre,
-        enlaceWeb,
-        carrera: { carreraId }, // Usar el ID de carrera directamente
-        contacto: { contactoId }, // Usar el ID de contacto directamente
-        enlaceImagen,
-      };
+      // Subir la imagen y obtener el enlace si se selecciona un nuevo archivo
+      let enlaceImagen = existingData ? existingData.enlaceImagen : null; // Mantener el enlace existente si no hay nuevo archivo
 
-      // Llamar a la función para agregar el grupo de investigación
-      await servicioGruposInvestigacion.postInstitutoInvestigacion(nuevoGrupoInvestigacion);
+      if (archivo) {
+        enlaceImagen = await servicioImagenes.uploadImagen(archivo);
+      }
+
+      // Determinar si estamos creando un nuevo grupo de investigación o actualizando uno existente
+      if (existingData) {
+        // Actualizar el grupo de investigación existente
+        await servicioGruposInvestigacion.putGrupoInvestigacion({
+          ...existingData,
+          nombre,
+          enlaceWeb,
+          carrera: { carreraId }, // Solo pasar el ID de carrera
+          contacto: { contactoId }, // Solo pasar el ID de contacto
+          enlaceImagen,
+        });
+      } else {
+        // Crear el nuevo grupo de investigación
+        await servicioGruposInvestigacion.postGrupoInvestigacion({
+          nombre,
+          enlaceWeb,
+          carrera: { carreraId: carreraId }, // Suponiendo que la propiedad 'id' es necesaria para la creación
+          contacto: { contactoId: contactoId }, // Suponiendo que la propiedad 'id' es necesaria para la creación
+          enlaceImagen,
+        });
+      }
 
       // Limpiar el formulario y cerrar el modal
       setNombre('');
@@ -46,7 +71,7 @@ const FormResearchGroup = ({ onAgregarGrupoInvestigacion, onCerrarFormulario }) 
       onCerrarFormulario();
       onAgregarGrupoInvestigacion();
     } catch (error) {
-      console.error('Error al agregar el Grupo de Investigación:', error);
+      console.error('Error al procesar el Grupo de Investigación:', error);
       // Manejar el error aquí, puedes mostrar un mensaje al usuario si lo prefieres
     }
   };
@@ -99,7 +124,7 @@ const FormResearchGroup = ({ onAgregarGrupoInvestigacion, onCerrarFormulario }) 
       </Form.Group>
 
       <Button variant="primary" type="submit">
-        Agregar Grupo de Investigación
+        {existingData ? 'Actualizar Grupo de Investigación' : 'Agregar Grupo de Investigación'}
       </Button>
     </Form>
   );

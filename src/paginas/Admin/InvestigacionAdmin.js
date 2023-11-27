@@ -7,6 +7,7 @@ import NavbarComponent from '../../componentes/Navbar';
 import Container from 'react-bootstrap/Container';
 import CardResearchInstitute from '../../componentes/CardResearchInstitute';
 import CardScientificSocieties from '../../componentes/CardScientificSocieties';
+import CardUpdate from '../../componentes/CardUpdate';
 import CardPlus from '../../componentes/CardPlus';
 import CardResearchCenters from '../../componentes/CardResearchCenters';
 import CardResearchGroup from '../../componentes/CardResearchGroup';
@@ -69,6 +70,7 @@ class InvestigacionAdmin extends Component {
                 contacto={item.contacto}
                 enlaceImagen={item.enlaceImagen}
               />
+              <CardUpdate onActualizarInstitutoInvestigacion={() => this.servicioInstitutosInvestigacion.getAll()} tipoFormulario="InstitutoInvestigacion" existingData={item} />
             </div>
           ))}
           
@@ -88,6 +90,7 @@ class InvestigacionAdmin extends Component {
                 contacto={item.contacto}
                 enlaceImagen={item.enlaceImagen}
               />
+              <CardUpdate onActualizarCentroInvestigacion={() => this.servicioCentrosInvestigacion.getAll()} tipoFormulario="CentroInvestigacion" existingData={item} />
             </div>
           ))}
 
@@ -104,6 +107,7 @@ class InvestigacionAdmin extends Component {
                 contacto={item.contacto}
                 enlaceImagen={item.enlaceImagen}
               />
+              <CardUpdate onActualizarSociedadCientifica={() => this.servicioSociedadesCientificas.getAll()} tipoFormulario="SociedadCientifica" existingData={item} />
             </div>
           ))}
           
@@ -121,6 +125,7 @@ class InvestigacionAdmin extends Component {
                 contacto={item.contacto}
                 enlaceImagen={item.enlaceImagen}
               />
+              <CardUpdate onActualizarGrupoInvestigacion={() => this.servicioGruposInvestigacion.getAll()} tipoFormulario="GrupoInvestigacion" existingData={item} />
             </div>
           ))}
           <CardPlus onAgregarGrupoInvestigacion={() => this.servicioGruposInvestigacion.getAll()} tipoFormulario="GrupoInvestigacion" />

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ServicioEventos } from '../../servicios/ServicioEventos';
 import ServicioImagenes from '../../servicios/ServicioImagenes';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-const FormEvento = ({ onAgregarEvento, onCerrarFormulario }) => {
-  const [nuevoEvento, setNuevoEvento] = useState({
+const FormEvento = ({ onAgregarEvento, onCerrarFormulario, existingData }) => {
+  const [evento, setEvento] = useState({
     nombre: '',
     fechaInicio: '',
     fechaFin: '',
@@ -13,13 +13,20 @@ const FormEvento = ({ onAgregarEvento, onCerrarFormulario }) => {
   });
 
   const [archivo, setArchivo] = useState(null);
-  const [error, setError] = useState(null); // Nuevo estado para manejar errores
+  const [error, setError] = useState(null);
   const servicioEventos = new ServicioEventos();
   const servicioImagenes = new ServicioImagenes();
 
+  // Actualizar el estado del formulario si hay datos existentes
+  useEffect(() => {
+    if (existingData) {
+      setEvento(existingData);
+    }
+  }, [existingData]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNuevoEvento({ ...nuevoEvento, [name]: value });
+    setEvento({ ...evento, [name]: value });
   };
 
   const handleArchivoChange = (e) => {
@@ -27,31 +34,54 @@ const FormEvento = ({ onAgregarEvento, onCerrarFormulario }) => {
     setArchivo(file);
   };
 
+  const handleCreateEvento = async () => {
+    const enlaceImagen = await servicioImagenes.uploadImagen(archivo);
+
+    await servicioEventos.postEvento({
+      ...evento,
+      enlaceImagen,
+    });
+  };
+
+  const handleUpdateEvento = async () => {
+    let enlaceImagen = existingData.enlaceImagen;
+
+    if (archivo) {
+      enlaceImagen = await servicioImagenes.uploadImagen(archivo);
+    }
+
+    await servicioEventos.putEvento({
+      ...evento,
+      enlaceImagen,
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Subir el archivo al nuevo servicio de imágenes
-      const enlaceImagen = await servicioImagenes.uploadImagen(archivo);
-
-      // Crear el evento
-      await servicioEventos.postEvento({
-        ...nuevoEvento,
-        enlaceImagen, // Incluir el enlace de la imagen en el evento
-      });
+      if (existingData) {
+        // Si hay datos existentes, realizar la actualización
+        await handleUpdateEvento();
+      } else {
+        // Si no hay datos existentes, realizar la creación
+        await handleCreateEvento();
+      }
 
       // Limpiar el formulario y cerrar el modal
-      setNuevoEvento({
+      setEvento({
         nombre: '',
         fechaInicio: '',
         fechaFin: '',
         descripcion: '',
       });
       setArchivo(null);
-      setError(null); // Limpiar cualquier error anterior
+      setError(null);
 
-      // Actualizar la lista de eventos
-      onAgregarEvento();
+      // Actualizar la lista de eventos solo si es una creación
+      if (!existingData) {
+        onAgregarEvento();
+      }
 
       // Cerrar el formulario
       onCerrarFormulario();
@@ -65,34 +95,33 @@ const FormEvento = ({ onAgregarEvento, onCerrarFormulario }) => {
     <form onSubmit={handleSubmit}>
       <label>
         Nombre:
-        <input type="text" name="nombre" value={nuevoEvento.nombre} onChange={handleInputChange} required />
+        <input type="text" name="nombre" value={evento.nombre} onChange={handleInputChange} required />
       </label>
       <br />
       <label>
         Fecha de Inicio:
-        <input type="date" name="fechaInicio" value={nuevoEvento.fechaInicio} onChange={handleInputChange} required />
+        <input type="date" name="fechaInicio" value={evento.fechaInicio} onChange={handleInputChange} required />
       </label>
       <br />
       <label>
         Fecha de Fin:
-        <input type="date" name="fechaFin" value={nuevoEvento.fechaFin} onChange={handleInputChange} required />
+        <input type="date" name="fechaFin" value={evento.fechaFin} onChange={handleInputChange} required />
       </label>
       <br />
       <label>
         Descripción:
-        <textarea name="descripcion" value={nuevoEvento.descripcion} onChange={handleInputChange} required />
+        <textarea name="descripcion" value={evento.descripcion} onChange={handleInputChange} required />
       </label>
       <br />
-      {/* Nuevo campo para la imagen */}
       <label>
-        Imagen:
+        Subir Imagen:
         <input type="file" accept="image/*" onChange={handleArchivoChange} />
       </label>
       <br />
-      {error && <p style={{ color: 'red' }}>{error}</p>} {/* Mostrar mensaje de error si existe */}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       <br />
       <Button variant="primary" type="submit">
-        Agregar Evento
+        {existingData ? 'Actualizar Evento' : 'Crear Evento'}
       </Button>
     </form>
   );

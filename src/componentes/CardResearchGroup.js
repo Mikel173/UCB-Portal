@@ -10,7 +10,12 @@ function CardResearchGroup(props) {
       <Card.Body>
         <div className="titulos">
           {/* Corregir de src a href */}
-          <h4><a href={props.enlaceWeb} target="_blank" rel="noopener noreferrer">{props.nombre}</a></h4>
+          {/* Verificar si hay un enlace antes de renderizar el componente <a> */}
+          {props.enlaceWeb ? (
+            <h4><a href={props.enlaceWeb} target="_blank" rel="noopener noreferrer">{props.nombre}</a></h4>
+          ) : (
+            <h4>{props.nombre}</h4>
+          )}
         </div>
         {/* Renderizar la lista directamente aquí, fuera de cualquier párrafo */}
         <Card.Text>

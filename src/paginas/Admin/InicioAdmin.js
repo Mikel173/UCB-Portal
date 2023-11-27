@@ -65,11 +65,11 @@ class InicioAdmin extends Component {
                 description={event.descripcion}
                 enlaceImagen={event.enlaceImagen}
               />
+              <CardUpdate tipoFormulario="evento" onUpdate={() => this.servicioEventos.getAll()} existingData={event} />
             </div>
           ))}
 
-          <CardPlus onAgregarEvento={() => this.servicioEventos.getAll()} tipoFormulario="evento" />
-          
+          <CardPlus onAgregarEvento={() => this.servicioEventos.getAll()} tipoFormulario="evento" />          
           
           <Container className="titulos">
             <h2>Noticias</h2>
