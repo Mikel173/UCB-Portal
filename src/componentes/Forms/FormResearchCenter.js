@@ -1,61 +1,57 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { ServicioSociedadesCientificas } from '../../servicios/ServicioSociedadesCientificas';
+import { ServicioCentrosInvestigacion } from '../../servicios/ServicioCentrosInvestigacion';
 import ServicioImagenes from '../../servicios/ServicioImagenes';
 
-const FormScientificSocieties = ({ onAgregarSociedadCientifica, onCerrarFormulario }) => {
+const FormResearchCenter = ({ onAgregarCentroInvestigacion, onCerrarFormulario }) => {
   const [nombre, setNombre] = useState('');
   const [enlaceWeb, setEnlaceWeb] = useState('');
+  const [descripcion, setDescripcion] = useState('');
   const [carreraId, setCarreraId] = useState('');
   const [contactoId, setContactoId] = useState('');
-  const [enlaceImagen, setEnlaceImagen] = useState(''); // Nuevo estado para almacenar el enlace de la imagen
   const [archivo, setArchivo] = useState(null);
 
-  const servicioSociedadesCientificas = new ServicioSociedadesCientificas();
+  const servicioCentrosInvestigacion = new ServicioCentrosInvestigacion();
   const servicioImagenes = new ServicioImagenes();
 
   const handleArchivoChange = async (e) => {
     const file = e.target.files[0];
     setArchivo(file);
-
-    try {
-      // Subir la imagen y obtener el enlace
-      const enlace = await servicioImagenes.uploadImagen(file);
-      setEnlaceImagen(enlace);
-    } catch (error) {
-      console.error('Error al subir la imagen:', error);
-      // Manejar el error aquí, puedes mostrar un mensaje al usuario si lo prefieres
-    }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      // Crear la nueva sociedad científica
-      const nuevaSociedadCientifica = {
+        // No es necesario almacenar el enlace de la imagen aquí, ya que se obtendrá al subir la imagen
+      const enlaceImagen = await servicioImagenes.uploadImagen(archivo);
+      
+      
+      // Crear el nuevo centro de investigación
+      const nuevoCentroInvestigacion = {
         nombre,
         enlaceWeb,
+        descripcion,
         carrera: { carreraId }, // Usar el ID de carrera directamente
         contacto: { contactoId }, // Usar el ID de contacto directamente
         enlaceImagen,
       };
 
-      // Llamar a la función para agregar la sociedad científica
-      await servicioSociedadesCientificas.postSociedadCientifica(nuevaSociedadCientifica);
+      // Llamar a la función para agregar el centro de investigación
+      await servicioCentrosInvestigacion.postInstitutoInvestigacion(nuevoCentroInvestigacion);
 
       // Limpiar el formulario y cerrar el modal
       setNombre('');
       setEnlaceWeb('');
+      setDescripcion('');
       setCarreraId('');
       setContactoId('');
-      setEnlaceImagen('');
       setArchivo(null);
       onCerrarFormulario();
-      onAgregarSociedadCientifica();
+      onAgregarCentroInvestigacion();
     } catch (error) {
-      console.error('Error al agregar la Sociedad Científica:', error);
+      console.error('Error al agregar el Centro de Investigación:', error);
       // Manejar el error aquí, puedes mostrar un mensaje al usuario si lo prefieres
     }
   };
@@ -79,6 +75,17 @@ const FormScientificSocieties = ({ onAgregarSociedadCientifica, onCerrarFormular
           placeholder="Ingrese el enlace web"
           value={enlaceWeb}
           onChange={(e) => setEnlaceWeb(e.target.value)}
+        />
+      </Form.Group>
+
+      <Form.Group controlId="formDescripcion">
+        <Form.Label>Descripción</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={3}
+          placeholder="Ingrese la descripción"
+          value={descripcion}
+          onChange={(e) => setDescripcion(e.target.value)}
         />
       </Form.Group>
 
@@ -108,10 +115,10 @@ const FormScientificSocieties = ({ onAgregarSociedadCientifica, onCerrarFormular
       </Form.Group>
 
       <Button variant="primary" type="submit">
-        Agregar Sociedad Científica
+        Agregar Centro de Investigación
       </Button>
     </Form>
   );
 };
 
-export default FormScientificSocieties;
+export default FormResearchCenter;

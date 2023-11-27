@@ -10,4 +10,8 @@ export class ServicioNoticias {
   postNoticia(noticia) {
     return axios.post(this.baseUrl + "noticias/", noticia).then((res) => res.data);
   }
+
+  putNoticia(noticia) {
+    return axios.put(this.baseUrl + "noticias/", noticia).then((res) => res.data);
+  }
 }

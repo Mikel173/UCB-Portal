@@ -1,40 +1,32 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { ServicioSociedadesCientificas } from '../../servicios/ServicioSociedadesCientificas';
+import { ServicioGruposInvestigacion } from '../../servicios/ServicioGruposInvestigacion';
 import ServicioImagenes from '../../servicios/ServicioImagenes';
 
-const FormScientificSocieties = ({ onAgregarSociedadCientifica, onCerrarFormulario }) => {
+const FormResearchGroup = ({ onAgregarGrupoInvestigacion, onCerrarFormulario }) => {
   const [nombre, setNombre] = useState('');
   const [enlaceWeb, setEnlaceWeb] = useState('');
   const [carreraId, setCarreraId] = useState('');
   const [contactoId, setContactoId] = useState('');
-  const [enlaceImagen, setEnlaceImagen] = useState(''); // Nuevo estado para almacenar el enlace de la imagen
   const [archivo, setArchivo] = useState(null);
 
-  const servicioSociedadesCientificas = new ServicioSociedadesCientificas();
+  const servicioGruposInvestigacion = new ServicioGruposInvestigacion();
   const servicioImagenes = new ServicioImagenes();
 
   const handleArchivoChange = async (e) => {
     const file = e.target.files[0];
     setArchivo(file);
-
-    try {
-      // Subir la imagen y obtener el enlace
-      const enlace = await servicioImagenes.uploadImagen(file);
-      setEnlaceImagen(enlace);
-    } catch (error) {
-      console.error('Error al subir la imagen:', error);
-      // Manejar el error aquí, puedes mostrar un mensaje al usuario si lo prefieres
-    }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      // Crear la nueva sociedad científica
-      const nuevaSociedadCientifica = {
+      const enlaceImagen = await servicioImagenes.uploadImagen(archivo);
+      
+      // Crear el nuevo grupo de investigación
+      const nuevoGrupoInvestigacion = {
         nombre,
         enlaceWeb,
         carrera: { carreraId }, // Usar el ID de carrera directamente
@@ -42,20 +34,19 @@ const FormScientificSocieties = ({ onAgregarSociedadCientifica, onCerrarFormular
         enlaceImagen,
       };
 
-      // Llamar a la función para agregar la sociedad científica
-      await servicioSociedadesCientificas.postSociedadCientifica(nuevaSociedadCientifica);
+      // Llamar a la función para agregar el grupo de investigación
+      await servicioGruposInvestigacion.postInstitutoInvestigacion(nuevoGrupoInvestigacion);
 
       // Limpiar el formulario y cerrar el modal
       setNombre('');
       setEnlaceWeb('');
       setCarreraId('');
       setContactoId('');
-      setEnlaceImagen('');
       setArchivo(null);
       onCerrarFormulario();
-      onAgregarSociedadCientifica();
+      onAgregarGrupoInvestigacion();
     } catch (error) {
-      console.error('Error al agregar la Sociedad Científica:', error);
+      console.error('Error al agregar el Grupo de Investigación:', error);
       // Manejar el error aquí, puedes mostrar un mensaje al usuario si lo prefieres
     }
   };
@@ -108,10 +99,10 @@ const FormScientificSocieties = ({ onAgregarSociedadCientifica, onCerrarFormular
       </Form.Group>
 
       <Button variant="primary" type="submit">
-        Agregar Sociedad Científica
+        Agregar Grupo de Investigación
       </Button>
     </Form>
   );
 };
 
-export default FormScientificSocieties;
+export default FormResearchGroup;
