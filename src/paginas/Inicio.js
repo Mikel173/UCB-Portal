@@ -14,7 +14,7 @@ import Container from 'react-bootstrap/Container';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 
-class InicioAdmin extends Component {
+class Inicio extends Component {
   constructor() {
     super();
     this.state = {
@@ -192,4 +192,4 @@ class InicioAdmin extends Component {
   }
 }
 
-export default InicioAdmin;
+export default Inicio;

@@ -11,6 +11,8 @@ import CardResearchInstitute from '../../componentes/CardResearchInstitute';
 import CardScientificSocieties from '../../componentes/CardScientificSocieties';
 import CardUpdate from '../../componentes/CardUpdate';
 import CardPlus from '../../componentes/CardPlus';
+import { withAuthenticationRequired } from '@auth0/auth0-react';
+import { LogoutButton } from '../../componentes/Logout';
 import CardResearchCenters from '../../componentes/CardResearchCenters';
 import CardResearchGroup from '../../componentes/CardResearchGroup';
 import '../../../src/InvestigacionAdmin.css'; // Importa el archivo de estilos CSS
@@ -113,7 +115,6 @@ class InvestigacionAdmin extends Component {
               <CardUpdate onActualizarSociedadCientifica={() => this.servicioSociedadesCientificas.getAll()} tipoFormulario="SociedadCientifica" existingData={item} />
             </div>
           ))}
-
           <CardPlus onAgregarSociedadCientifica={() => this.servicioSociedadesCientificas.getAll()} tipoFormulario="SociedadCientifica" />
 
           <Container className="titulos">
@@ -132,11 +133,11 @@ class InvestigacionAdmin extends Component {
             </div>
           ))}
           <CardPlus onAgregarGrupoInvestigacion={() => this.servicioGruposInvestigacion.getAll()} tipoFormulario="GrupoInvestigacion" />
-
+        <LogoutButton />
         </div>
       </div>
     );
   }
 }
 
-export default InvestigacionAdmin;
+export default withAuthenticationRequired(InvestigacionAdmin);
