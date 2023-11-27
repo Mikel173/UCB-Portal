@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 function CardNews(props) {
     return (
       <Card style={{ width: '18rem' }}>
-        <Card.Img variant='top' src={require('../imagenes/Card2.png')}/>
+        <Card.Img variant='top' src={props.enlaceImagen} />
         {/*<Card.Img variant='top' src={require(`../imagenes/Card${props.uwu}.png`)}/>*/}
         <Card.Body>
           <Card.Title>{props.title}</Card.Title>

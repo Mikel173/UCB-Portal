@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 function CardComponent(props) {
     return (
       <Card style={{ width: '18rem' }}>
-        <Card.Img variant='top' src={require('../imagenes/Card1.png')}/>
+        <Card.Img variant='top' src={props.enlaceImagen}/>
        {/* <Card.Img variant='top' src={require(`../imagenes/Card${props.uwu}.png`)}/>*/}
         <Card.Body>
           <Container className="titulos">

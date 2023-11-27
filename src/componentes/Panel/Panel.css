@@ -1,5 +1,4 @@
-
-  
+/* Estilos base */
 .feature {
   max-width: 400px;
   margin: 0 auto;
@@ -14,15 +13,16 @@
   font-size: 16px;
 }
 
-.image-container {
+.image-containerP {
   position: relative;
-  width: 400px;
+  width: 100%; /* Ajustar el ancho al 100% para hacerlo responsivo */
+  max-width: 400px; /* Establecer el ancho máximo para evitar que crezca indefinidamente en pantallas grandes */
   height: 400px;
   overflow: hidden;
   margin: 0 auto;
-  background-color: #f2f2f2; /* Color de fondo gris */
-  border-radius: 15px; /* Bordes redondeados */
-  margin-bottom: 20px; /* Espacio entre divs */
+  background-color: #f2f2f2;
+  border-radius: 15px;
+  margin-bottom: 20px;
 }
 
 .image {
@@ -46,10 +46,25 @@
   transition: opacity 0.5s;
 }
 
-.image-container:hover .image {
+.image-containerP:hover .image {
   transform: scale(1.1);
 }
 
-.image-container:hover .image-overlay {
+.image-containerP:hover .image-overlay {
   opacity: 1;
+}
+
+/* Estilos para hacerlo responsivo */
+@media screen and (max-width: 768px) {
+  .feature h2 {
+    font-size: 30px; /* Reducir el tamaño de la fuente para pantallas más pequeñas */
+  }
+
+  .feature p {
+    font-size: 14px; /* Reducir el tamaño de la fuente para pantallas más pequeñas */
+  }
+
+  .image-containerP {
+    max-width: 100%; /* Ajustar el ancho al 100% para hacerlo responsivo */
+  }
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
+import ImagePanel from '../componentes/ImagePanel/ImagePanel';
 
 class PortalEgresados extends React.Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class PortalEgresados extends React.Component {
 
   renderSection(section) {
     return (
+      
       <Container className="section-container" style={{ maxWidth: '300px', marginBottom: '20px' }}>
         <h2 style={{ color: '#005A9C' }}>{section.title}</h2>
         <a href={section.link} target="_blank" rel="noopener noreferrer">
@@ -37,6 +39,9 @@ class PortalEgresados extends React.Component {
 
     return (
       <div>
+        <div>
+        <ImagePanel title="Recurso de Egresados"/>
+        </div>
         <div className="contenedor-principal" style={{
           display: 'flex',
           justifyContent: 'space-around',
