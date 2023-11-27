@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { ServicioInstitutosInvestigacion } from '../../servicios/ServicioInstitutosInvestigacion';
+import ServicioImagenes from '../../servicios/ServicioImagenes';
 
 const FormResearchInstitute = ({ onAgregarInstitutoInvestigacion, onCerrarFormulario }) => {
   const [nombre, setNombre] = useState('');
@@ -9,21 +11,51 @@ const FormResearchInstitute = ({ onAgregarInstitutoInvestigacion, onCerrarFormul
   const [descripcion, setDescripcion] = useState('');
   const [carreraId, setCarreraId] = useState('');
   const [contactoId, setContactoId] = useState('');
+  const [archivo, setArchivo] = useState(null);
 
-  const handleSubmit = (event) => {
+  const servicioInstitutosInvestigacion = new ServicioInstitutosInvestigacion();
+  const servicioImagenes = new ServicioImagenes();
+
+  const handleArchivoChange = (e) => {
+    const file = e.target.files[0];
+    setArchivo(file);
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const nuevoInstitutoInvestigacion = {
-      nombre,
-      enlaceWeb,
-      lineasInvestigacion,
-      descripcion,
-      carreraId,
-      contactoId
-    };
+    try {
+      // Subir la imagen y obtener el enlace
+      const enlaceImagen = await servicioImagenes.uploadImagen(archivo);
 
-    onAgregarInstitutoInvestigacion(nuevoInstitutoInvestigacion);
-    onCerrarFormulario();
+      // Crear el nuevo instituto de investigación
+      const nuevoInstitutoInvestigacion = {
+        nombre,
+        enlaceWeb,
+        lineasInvestigacion,
+        descripcion,
+        carrera: { carreraId }, // Usar el ID de carrera directamente
+        contacto: { contactoId }, // Usar el ID de contacto directamente
+        enlaceImagen,
+      };
+
+      // Llamar a la función para agregar el instituto de investigación
+      await servicioInstitutosInvestigacion.postInstitutoInvestigacion(nuevoInstitutoInvestigacion);
+
+      // Limpiar el formulario y cerrar el modal
+      setNombre('');
+      setEnlaceWeb('');
+      setLineasInvestigacion('');
+      setDescripcion('');
+      setCarreraId('');
+      setContactoId('');
+      setArchivo(null);
+      onCerrarFormulario();
+      onAgregarInstitutoInvestigacion();
+    } catch (error) {
+      console.error('Error al agregar el Instituto de Investigación:', error);
+      // Manejar el error aquí, puedes mostrar un mensaje al usuario si lo prefieres
+    }
   };
 
   return (
@@ -87,6 +119,11 @@ const FormResearchInstitute = ({ onAgregarInstitutoInvestigacion, onCerrarFormul
           value={contactoId}
           onChange={(e) => setContactoId(e.target.value)}
         />
+      </Form.Group>
+
+      <Form.Group controlId="formArchivo">
+        <Form.Label>Imagen</Form.Label>
+        <Form.Control type="file" accept="image/*" onChange={handleArchivoChange} />
       </Form.Group>
 
       <Button variant="primary" type="submit">

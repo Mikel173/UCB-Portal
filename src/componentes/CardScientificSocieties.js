@@ -5,11 +5,10 @@ import Card from 'react-bootstrap/Card';
 function CardScientificSocieties(props) {
   return (
     <Card style={{ width: '18rem' }}>
-      <Card.Img variant='top' src={props.enlaceWeb} />
-      <Card.Body>
-      
+      <Card.Img variant='top' src={props.enlaceImagen} />
+      <Card.Body>      
           <div className="titulos">
-            <h4>{props.nombre}</h4>
+          <h4><a href={props.enlaceWeb} target="_blank" rel="noopener noreferrer">{props.nombre}</a></h4>
           </div>
           <Card.Text>
             <strong>Contacto:</strong> {props.contacto.nombre}

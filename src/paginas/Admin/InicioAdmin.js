@@ -8,6 +8,7 @@ import CardNews from '../../componentes/CardNews';
 import CardPlus from '../../componentes/CardPlus';
 import FormEvento from '../../componentes/Forms/FormEvento';
 import FormNoticia from '../../componentes/Forms/FormNoticia';
+import CardUpdate from '../../componentes/CardUpdate';
 
 class InicioAdmin extends Component {
   constructor() {
@@ -68,7 +69,8 @@ class InicioAdmin extends Component {
           ))}
 
           <CardPlus onAgregarEvento={() => this.servicioEventos.getAll()} tipoFormulario="evento" />
-
+          
+          
           <Container className="titulos">
             <h2>Noticias</h2>
           </Container>
@@ -81,11 +83,10 @@ class InicioAdmin extends Component {
                 description={news.contenido}
                 enlaceImagen={news.enlaceImagen}
               />
-            </div>
+              <CardUpdate tipoFormulario="noticia" onUpdate={() => this.servicioNoticias.getAll()} existingData={news} />            </div>
           ))}
 
           <CardPlus onAgregarNoticia={() => this.servicioNoticias.getAll()} tipoFormulario="noticia" />
-
           {/* Mostrar el formulario correspondiente según el estado */}
           {this.state.showEventoForm && <FormEvento onCloseForm={this.handleCloseForm} />}
           {this.state.showNoticiaForm && <FormNoticia onCloseForm={this.handleCloseForm} />}
