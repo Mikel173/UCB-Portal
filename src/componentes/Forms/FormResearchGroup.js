@@ -1,34 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { ServicioInstitutosInvestigacion } from '../../servicios/ServicioInstitutosInvestigacion';
+import { ServicioGruposInvestigacion } from '../../servicios/ServicioGruposInvestigacion';
 import ServicioImagenes from '../../servicios/ServicioImagenes';
 
-const FormResearchInstitute = ({ onAgregarInstitutoInvestigacion, onCerrarFormulario, existingData }) => {
+const FormResearchGroup = ({ onAgregarGrupoInvestigacion, onCerrarFormulario, existingData }) => {
   const [nombre, setNombre] = useState('');
   const [enlaceWeb, setEnlaceWeb] = useState('');
-  const [lineasInvestigacion, setLineasInvestigacion] = useState('');
-  const [descripcion, setDescripcion] = useState('');
   const [carreraId, setCarreraId] = useState('');
   const [contactoId, setContactoId] = useState('');
   const [archivo, setArchivo] = useState(null);
 
-  const servicioInstitutosInvestigacion = new ServicioInstitutosInvestigacion();
+  const servicioGruposInvestigacion = new ServicioGruposInvestigacion();
   const servicioImagenes = new ServicioImagenes();
 
+  // Actualizar el estado del formulario si hay datos existentes
   useEffect(() => {
-    // Si hay datos existentes, actualizar el estado del formulario
     if (existingData) {
       setNombre(existingData.nombre);
       setEnlaceWeb(existingData.enlaceWeb);
-      setLineasInvestigacion(existingData.lineasInvestigacion);
-      setDescripcion(existingData.descripcion);
       setCarreraId(existingData.carrera.carreraId); // Suponiendo que la propiedad 'id' existe en el objeto 'carrera'
       setContactoId(existingData.contacto.contactoId); // Suponiendo que la propiedad 'id' existe en el objeto 'contacto'
     }
   }, [existingData]);
 
-  const handleArchivoChange = (e) => {
+  const handleArchivoChange = async (e) => {
     const file = e.target.files[0];
     setArchivo(file);
   };
@@ -44,26 +40,22 @@ const FormResearchInstitute = ({ onAgregarInstitutoInvestigacion, onCerrarFormul
         enlaceImagen = await servicioImagenes.uploadImagen(archivo);
       }
 
-      // Determinar si estamos creando un nuevo instituto o actualizando uno existente
+      // Determinar si estamos creando un nuevo grupo de investigación o actualizando uno existente
       if (existingData) {
-        // Actualizar el instituto de investigación existente
-        await servicioInstitutosInvestigacion.putInstitutoInvestigacion({
+        // Actualizar el grupo de investigación existente
+        await servicioGruposInvestigacion.putGrupoInvestigacion({
           ...existingData,
           nombre,
           enlaceWeb,
-          lineasInvestigacion,
-          descripcion,
-          carrera: { carreraId: carreraId }, // Suponiendo que la propiedad 'id' es necesaria para la actualización
-          contacto: { contactoId: contactoId }, // Suponiendo que la propiedad 'id' es necesaria para la actualización
+          carrera: { carreraId }, // Solo pasar el ID de carrera
+          contacto: { contactoId }, // Solo pasar el ID de contacto
           enlaceImagen,
         });
       } else {
-        // Crear el nuevo instituto de investigación
-        await servicioInstitutosInvestigacion.postInstitutoInvestigacion({
+        // Crear el nuevo grupo de investigación
+        await servicioGruposInvestigacion.postGrupoInvestigacion({
           nombre,
           enlaceWeb,
-          lineasInvestigacion,
-          descripcion,
           carrera: { carreraId: carreraId }, // Suponiendo que la propiedad 'id' es necesaria para la creación
           contacto: { contactoId: contactoId }, // Suponiendo que la propiedad 'id' es necesaria para la creación
           enlaceImagen,
@@ -73,15 +65,13 @@ const FormResearchInstitute = ({ onAgregarInstitutoInvestigacion, onCerrarFormul
       // Limpiar el formulario y cerrar el modal
       setNombre('');
       setEnlaceWeb('');
-      setLineasInvestigacion('');
-      setDescripcion('');
       setCarreraId('');
       setContactoId('');
       setArchivo(null);
       onCerrarFormulario();
-      onAgregarInstitutoInvestigacion();
+      onAgregarGrupoInvestigacion();
     } catch (error) {
-      console.error('Error al procesar el Instituto de Investigación:', error);
+      console.error('Error al procesar el Grupo de Investigación:', error);
       // Manejar el error aquí, puedes mostrar un mensaje al usuario si lo prefieres
     }
   };
@@ -105,27 +95,6 @@ const FormResearchInstitute = ({ onAgregarInstitutoInvestigacion, onCerrarFormul
           placeholder="Ingrese el enlace web"
           value={enlaceWeb}
           onChange={(e) => setEnlaceWeb(e.target.value)}
-        />
-      </Form.Group>
-
-      <Form.Group controlId="formLineasInvestigacion">
-        <Form.Label>Líneas de Investigación</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Ingrese las líneas de investigación (separadas por ;)"
-          value={lineasInvestigacion}
-          onChange={(e) => setLineasInvestigacion(e.target.value)}
-        />
-      </Form.Group>
-
-      <Form.Group controlId="formDescripcion">
-        <Form.Label>Descripción</Form.Label>
-        <Form.Control
-          as="textarea"
-          rows={3}
-          placeholder="Ingrese la descripción"
-          value={descripcion}
-          onChange={(e) => setDescripcion(e.target.value)}
         />
       </Form.Group>
 
@@ -155,10 +124,10 @@ const FormResearchInstitute = ({ onAgregarInstitutoInvestigacion, onCerrarFormul
       </Form.Group>
 
       <Button variant="primary" type="submit">
-        {existingData ? 'Actualizar Instituto de Investigación' : 'Agregar Instituto de Investigación'}
+        {existingData ? 'Actualizar Grupo de Investigación' : 'Agregar Grupo de Investigación'}
       </Button>
     </Form>
   );
 };
 
-export default FormResearchInstitute;
+export default FormResearchGroup;

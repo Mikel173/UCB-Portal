@@ -6,8 +6,9 @@ import FormEvento from './Forms/FormEvento';
 import FormNoticia from './Forms/FormNoticia';
 import FormInstitutoInvestigacion from './Forms/FormResearchInstitute';
 import FormSociedadCientifica from './Forms/FormScientificSocieties';
-
-const CardPlus = ({ onAgregarEvento, onAgregarNoticia, onAgregarInstitutoInvestigacion, onAgregarSociedadCientifica, tipoFormulario }) => {
+import FormCentroInvestigacion from './Forms/FormResearchCenter';
+import FormResearchGroup from './Forms/FormResearchGroup';
+const CardPlus = ({ onAgregarEvento, onAgregarNoticia, onAgregarInstitutoInvestigacion, onAgregarSociedadCientifica, onAgregarCentroInvestigacion,onAgregarGrupoInvestigacion,tipoFormulario }) => {
   const [showForm, setShowForm] = useState(false);
 
   const handleShowForm = () => {
@@ -28,7 +29,7 @@ const CardPlus = ({ onAgregarEvento, onAgregarNoticia, onAgregarInstitutoInvesti
 
       <Modal show={showForm} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>{`Formulario de ${tipoFormulario === 'evento' ? 'Evento' : tipoFormulario === 'noticia' ? 'Noticia' : tipoFormulario === 'InstitutoInvestigacion' ? 'Instituto de Investigación' : 'Sociedad Científica'}`}</Modal.Title>
+          <Modal.Title>{`Formulario de ${tipoFormulario}`}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {tipoFormulario === 'evento' ? (
@@ -36,13 +37,15 @@ const CardPlus = ({ onAgregarEvento, onAgregarNoticia, onAgregarInstitutoInvesti
           )
            : tipoFormulario === 'noticia' ? (
             <FormNoticia onAgregarNoticia={onAgregarNoticia} onCerrarFormulario={handleClose} /> 
-           ) 
+           )
            : tipoFormulario === 'InstitutoInvestigacion' ? (
             <FormInstitutoInvestigacion onAgregarInstitutoInvestigacion={onAgregarInstitutoInvestigacion} onCerrarFormulario={handleClose} />
           ) : tipoFormulario === 'SociedadCientifica' ? (
             <FormSociedadCientifica onAgregarSociedadCientifica={onAgregarSociedadCientifica} onCerrarFormulario={handleClose} />
+          ) : tipoFormulario === 'CentroInvestigacion' ? (
+            <FormCentroInvestigacion onAgregarCentroInvestigacion={onAgregarCentroInvestigacion} onCerrarFormulario={handleClose} />
           ) : (
-            <FormNoticia onAgregarNoticia={onAgregarNoticia} onCerrarFormulario={handleClose} />
+            <FormResearchGroup onAgregarGrupoInvestigacion={onAgregarGrupoInvestigacion} onCerrarFormulario={handleClose} />
           )}
         </Modal.Body>
       </Modal>
