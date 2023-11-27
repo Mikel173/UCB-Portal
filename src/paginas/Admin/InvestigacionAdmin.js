@@ -1,3 +1,5 @@
+// InvestigacionAdmin.js
+
 import React, { Component } from 'react';
 import { ServicioInstitutosInvestigacion } from '../../servicios/ServicioInstitutosInvestigacion';
 import { ServicioSociedadesCientificas } from '../../servicios/ServicioSociedadesCientificas';
@@ -11,12 +13,13 @@ import CardUpdate from '../../componentes/CardUpdate';
 import CardPlus from '../../componentes/CardPlus';
 import CardResearchCenters from '../../componentes/CardResearchCenters';
 import CardResearchGroup from '../../componentes/CardResearchGroup';
+import '../../../src/InvestigacionAdmin.css'; // Importa el archivo de estilos CSS
 
 class InvestigacionAdmin extends Component {
   constructor() {
     super();
     this.state = {
-      researchItems: [], 
+      researchItems: [],
       cientistSocieties: [],
       researchCenters: [],
       researchGroups: [],
@@ -58,7 +61,7 @@ class InvestigacionAdmin extends Component {
           <Container className="titulos">
             <h2>Institutos de Investigacion</h2>
           </Container>
-          
+
           {this.state.researchItems && this.state.researchItems.map((item) => (
             <div key={item.institutoId} className="card-container">
               <CardResearchInstitute
@@ -73,7 +76,7 @@ class InvestigacionAdmin extends Component {
               <CardUpdate onActualizarInstitutoInvestigacion={() => this.servicioInstitutosInvestigacion.getAll()} tipoFormulario="InstitutoInvestigacion" existingData={item} />
             </div>
           ))}
-          
+
           <CardPlus onAgregarInstitutoInvestigacion={() => this.servicioInstitutosInvestigacion.getAll()} tipoFormulario="InstitutoInvestigacion" />
 
           <Container className="titulos">
@@ -97,7 +100,7 @@ class InvestigacionAdmin extends Component {
           <CardPlus onAgregarCentroInvestigacion={() => this.servicioCentrosInvestigacion.getAll()} tipoFormulario="CentroInvestigacion" />
 
           <Container className="titulos">
-            <h2>Sociedades Científicas</h2> 
+            <h2>Sociedades Científicas</h2>
           </Container>
           {this.state.cientistSocieties && this.state.cientistSocieties.map((item) => (
             <div key={item.sociedadId} className="card-container">
@@ -110,11 +113,11 @@ class InvestigacionAdmin extends Component {
               <CardUpdate onActualizarSociedadCientifica={() => this.servicioSociedadesCientificas.getAll()} tipoFormulario="SociedadCientifica" existingData={item} />
             </div>
           ))}
-          
+
           <CardPlus onAgregarSociedadCientifica={() => this.servicioSociedadesCientificas.getAll()} tipoFormulario="SociedadCientifica" />
-            
+
           <Container className="titulos">
-            <h2>Grupos de Investigacion</h2> 
+            <h2>Grupos de Investigacion</h2>
           </Container>
           {this.state.researchGroups && this.state.researchGroups.map((item) => (
             <div key={item.grupoInvestigacionId} className="card-container">

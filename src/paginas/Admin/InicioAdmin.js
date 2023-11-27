@@ -62,6 +62,8 @@ class InicioAdmin extends Component {
               <CardComponent
                 key={event.eventoId}
                 title={event.nombre}
+                startDate={event.fechaInicio}
+                endDate={event.fechaFin}
                 description={event.descripcion}
                 enlaceImagen={event.enlaceImagen}
               />
@@ -79,6 +81,7 @@ class InicioAdmin extends Component {
             <div key={news.noticiaId} className="card-container">
               <CardNews
                 key={news.noticiaId}
+                fechaPublicacion={news.fechaPublicacion}
                 title={news.titulo}
                 description={news.contenido}
                 enlaceImagen={news.enlaceImagen}
