@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { ServicioInstitutosInvestigacion } from '../../servicios/ServicioInstitutosInvestigacion';
 import { ServicioSociedadesCientificas } from '../../servicios/ServicioSociedadesCientificas';
-import NavbarComponent from '../../componentes/Navbar';
 import Container from 'react-bootstrap/Container';
 import CardResearchInstitute from '../../componentes/CardResearchInstitute';
 import CardScientificSocieties from '../../componentes/CardScientificSocieties';
 import CardPlus from '../../componentes/CardPlus';
+import { withAuthenticationRequired } from '@auth0/auth0-react';
+import { LogoutButton } from '../../componentes/Logout';
 
 class InvestigacionAdmin extends Component {
   constructor() {
@@ -67,12 +68,12 @@ class InvestigacionAdmin extends Component {
               />
             </div>
           ))}
-
           <CardPlus onAgregarSociedadCientifica={() => this.servicioSociedadesCientificas.getAll()} tipoFormulario="SociedadCientifica" />
+        <LogoutButton />
         </div>
       </div>
     );
   }
 }
 
-export default InvestigacionAdmin;
+export default withAuthenticationRequired(InvestigacionAdmin);

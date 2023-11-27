@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withAuthenticationRequired } from '@auth0/auth0-react';
 import { ServicioEventos } from '../../servicios/ServicioEventos';
 import { ServicioNoticias } from '../../servicios/ServicioNoticias';
 import Container from 'react-bootstrap/Container';
@@ -8,6 +9,7 @@ import CardNews from '../../componentes/CardNews';
 import CardPlus from '../../componentes/CardPlus';
 import FormEvento from '../../componentes/Forms/FormEvento';
 import FormNoticia from '../../componentes/Forms/FormNoticia';
+import { LogoutButton } from '../../componentes/Logout';
 
 class InicioAdmin extends Component {
   constructor() {
@@ -89,10 +91,12 @@ class InicioAdmin extends Component {
           {/* Mostrar el formulario correspondiente según el estado */}
           {this.state.showEventoForm && <FormEvento onCloseForm={this.handleCloseForm} />}
           {this.state.showNoticiaForm && <FormNoticia onCloseForm={this.handleCloseForm} />}
+           <LogoutButton />
+
         </div>
       </div>
     );
   }
 }
 
-export default InicioAdmin;
+export default withAuthenticationRequired(InicioAdmin);

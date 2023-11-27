@@ -1,8 +1,15 @@
 import React from 'react';
-import NavbarComponent from '../componentes/Navbar';
 import ImagePanel from '../componentes/ImagePanel/ImagePanel';
 import '../App.css';
-
+import becaComunidad from '../imagenes/becas/beca-comunidad.png';
+import becaCultural from '../imagenes/becas/beca-cultural.png';
+import becaReligiosos from '../imagenes/becas/beca-religiosos.png';
+import becaPersonasDiscapacidad from '../imagenes/becas/beca-personas-discapacitadas.png';
+import becaExcelencia from '../imagenes/becas/beca-excelencia.png';
+import descuentoFamiliar from '../imagenes/becas/descuento-familiar.png';
+import descuentoInstitucional from '../imagenes/becas/descuento-institucional.png';
+import descuentoProntoPago from '../imagenes/becas/descuento-pronto-pago.png';
+import Card from 'react-bootstrap/Card';
 
 const estiloContenedor = {
   textAlign: 'left', // Alinea el texto a la izquierda
@@ -18,6 +25,7 @@ const estiloEncabezado = {
   fontFamily: 'Oswald, sans-serif', // Fuente para los encabezados
   color: '#004277', // Color de los encabezados
 };
+
 
 const AdmisionYBecas = () => {
   return (
@@ -69,7 +77,8 @@ const AdmisionYBecas = () => {
       </div>
 
       <div style={estiloContenedor}>
-        <h2 style={estiloEncabezado}>Beca Comunidad (Ex Beca Socioeconómica)</h2>
+        <h3 style={estiloEncabezado}>Beca Comunidad (Ex Beca Socioeconómica)</h3>
+        <img src={becaComunidad} alt="Beca Comunidad" style={{ width: '35%', height: 'auto', margin: '10px 0' }} />
         <p>La Beca Comunidad apoya la continuidad de los estudios en la Universidad de estudiantes que demostraron buen nivel académico y que se encuentran en dificultades económicas probadas.</p>
         <p>Para postular a la beca Comunidad, el estudiante debe cumplir los siguientes requisitos específicos:</p>
         <ul>
@@ -88,7 +97,8 @@ const AdmisionYBecas = () => {
       </div>
 
       <div style={estiloContenedor}>
-        <h2 style={estiloEncabezado}>Beca para Personas con Discapacidad</h2>
+        <h3 style={estiloEncabezado}>Beca para Personas con Discapacidad</h3>
+        <img src={becaPersonasDiscapacidad} alt="Beca para Personas con Discapacidad" style={{ width: '35%', height: 'auto', margin: '10px 0' }} />
         <p>Esta beca tiene el propósito de ayudar a la consecución de los objetivos de profesionalización de personas con discapacidad permanente grave.</p>
         <p>Además de cumplir con los requisitos generales, para la postulación el estudiante deberá presentar la respectiva certificación de su situación de discapacidad emitida por la institución competente de acuerdo a Ley.</p>
         <p>El estudiante deberá enviar su solicitud de postulación para la beca respectiva al email <a href="mailto:becas.lpz@ucb.edu.bo">becas.lpz@ucb.edu.bo</a> en la cual se consigne:</p>
@@ -102,7 +112,8 @@ const AdmisionYBecas = () => {
       </div>
 
       <div style={estiloContenedor}>
-        <h2 style={estiloEncabezado}>Beca para Religiosos de la Iglesia Católica</h2>
+        <h3 style={estiloEncabezado}>Beca para Religiosos de la Iglesia Católica</h3>
+        <img src={becaReligiosos} alt="Beca para Religiosos de la Iglesia Católica" style={{ width: '35%', height: 'auto', margin: '10px 0' }} />
         <p>Con esta beca se busca promover la profesionalización de religiosos y del clero diocesano de la Iglesia Católica en el país.</p>
         <p>El estudiante deberá enviar su solicitud de postulación para la beca al email <a href="mailto:becas.lpz@ucb.edu.bo">becas.lpz@ucb.edu.bo</a> en el cual consigne:</p>
         <ul>
@@ -116,7 +127,8 @@ const AdmisionYBecas = () => {
       </div>
 
       <div style={estiloContenedor}>
-        <h2 style={estiloEncabezado}>Beca Excelencia Académica</h2>
+        <h3 style={estiloEncabezado}>Beca Excelencia Académica</h3>
+        <img src={becaExcelencia} alt="Beca Excelencia Académica" style={{ width: '35%', height: 'auto', margin: '10px 0' }} />
         <p>Cada semestre se otorga una beca a los mejores promedio académicos de cada carrera en la universidad. <strong>No requiere postulación</strong> ya que la U.C.B. se contacta con los estudiantes meritorios de la beca.</p>
         <p><strong>Requisito</strong></p>
         <ul>
@@ -125,7 +137,8 @@ const AdmisionYBecas = () => {
       </div>
 
       <div style={estiloContenedor}>
-        <h2 style={estiloEncabezado}>Beca Cultural y Deportiva</h2>
+        <h3 style={estiloEncabezado}>Beca Cultural y Deportiva</h3>
+        <img src={becaCultural} alt="Beca Cultural y Deportiva" style={{ width: '35%', height: 'auto', margin: '10px 0' }} />
         <p>Se otorga a estudiantes que han cursado al menos un semestre en la U.C.B. e integran uno de los talleres culturales o equipos deportivos.</p>
         <p><strong>Requisitos</strong></p>
         <ul>
@@ -134,7 +147,45 @@ const AdmisionYBecas = () => {
           <li>Presentarse a la convocatoria del taller o deporte.</li>
         </ul>
       </div>
-    </div>
+
+      <div className="container mt-5">
+      <div className="row">
+        <div className="col-md-4">
+          <Card>
+            <Card.Img variant="top" src={descuentoFamiliar} alt="Card 1" />
+            <Card.Body>
+              <Card.Title style={{ textAlign: 'center' }}><h4 style={estiloEncabezado}><strong>Familiar</strong></h4></Card.Title>
+              <Card.Text>
+              Para solicitar el descuento familiar, se debe llenar una solicitud en el Departamento de Tesorería, según la cantidad de hermanos, se podrá optar por 20% (2 hermanos), 40% (3 hermanos) y 60% (4 hermanos). El descuento se asignará en base a la cantidad de créditos de cada hermano.* Para más información consultar el reglamento vigente.
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </div>
+        <div className="col-md-4">
+          <Card>
+            <Card.Img variant="top" src={descuentoInstitucional} alt="Card 2" />
+            <Card.Body>
+              <Card.Title style={{ textAlign: 'center' }}><h4 style={estiloEncabezado}><strong>Pronto Pago</strong></h4></Card.Title>
+              <Card.Text>
+              Se otorga un descuento del 8% a todo estudiante por realizar pago al contado. Solicitar más información en oficinas de Tesorería.
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </div>
+        <div className="col-md-4">
+          <Card>
+            <Card.Img variant="top" src={descuentoProntoPago} alt="Card 3" />
+            <Card.Body>
+              <Card.Title style={{ textAlign: 'center' }}><h4 style={estiloEncabezado}><strong>Descuento Institucional</strong></h4></Card.Title>
+              <Card.Text>
+              Constituye un beneficio que la Universidad otorga a hijos del personal docente y administrativo de la Universidad Católica Boliviana “San Pablo” para cursar estudios de Licenciatura en la Universidad.
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </div>
+      </div>
+      </div>
+      </div>
   );
 }
 
