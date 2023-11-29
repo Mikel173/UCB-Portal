@@ -12,7 +12,7 @@ function FooterComponent() {
         <Navbar.Text>
           © Copyright Universidad Católica Boliviana "San Pablo" Regional La Paz
         </Navbar.Text>
-        <div>
+        <div className="social-icons">
           <a href="https://www.instagram.com/ucb.lapaz/" className="navbar-icon">
             <FontAwesomeIcon icon={faInstagram} size="lg" />
           </a>

@@ -220,4 +220,8 @@ h5 {
 }
 
 
+.social-icons {
+  display: flex;
+  gap: 10px; /* Ajusta el valor según el espacio que quieras entre los iconos */
+}
 

@@ -64,8 +64,8 @@ class InicioAdmin extends Component {
               <CardComponent
                 key={event.eventoId}
                 title={event.nombre}
-                startDate={event.fechaInicio}
-                endDate={event.fechaFin}
+                fechaInicio={event.fechaInicio}
+                fechaFin={event.fechaFin}
                 description={event.descripcion}
                 enlaceImagen={event.enlaceImagen}
               />
@@ -102,5 +102,5 @@ class InicioAdmin extends Component {
     );
   }
 }
-
-export default withAuthenticationRequired(InicioAdmin);
+//export default InicioAdmin;
+ export default withAuthenticationRequired(InicioAdmin);
