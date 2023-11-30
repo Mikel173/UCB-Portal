@@ -13,6 +13,7 @@ import SV008 from '../imagenes/SV008.png';
 import SV009 from '../imagenes/SV009.png';
 import SV010 from '../imagenes/SV010.png';
 import SV011 from '../imagenes/SV011.png';
+import { LoginButton } from '../componentes/Login';
 
 
 const SistemasVirtuales = () => {
@@ -21,6 +22,7 @@ return (
       <h2 className="SistemasVirtuales">Sistemas virtuales</h2>
       <div className="separador"></div>
       <h2 class="SistemasVirtuales">Estudiantes</h2>
+      
       <div class="svimage">
         <a href="https://academico.ucb.edu.bo/AcademicoNacional/login" target="_blank">
             <img src={SV001} alt="Imagen 1"></img>
@@ -43,16 +45,15 @@ return (
         <a href="https://drive.google.com/file/d/1gsbovpSAEU8m2aZjo3DOubqs1dkscTmC/view?usp=sharing" download>
             <img src={SV006} alt="Imagen 6"></img>
         </a>
-        <img src={SV007} alt="Imagen 7"></img>
-        <img src={SV008} alt="Imagen 8"></img>
         <a href="https://cajap.ucb.edu.bo/UCBPagosWeb/Default.aspx" target="_blank">
             <img src={SV009} alt="Imagen 9"></img>
         </a>
-        <img src={SV010} alt="Imagen 10"></img>
-    </div>
+
+      </div>
       <button className="show-more-button" onClick={mostrarMas}>
         Mostrar más
       </button>
+
       <h2 class="SistemasVirtuales">Docentes</h2>
     <div class="svimage">
         <a href="https://academico.ucb.edu.bo/AcademicoNacional/login" target="_blank">
@@ -86,10 +87,16 @@ return (
         <a href="https://login.microsoftonline.com/" target="_blank">
             <img src={SV004} alt="Imagen 19"></img>
         </a>
-        <a href="https://drive.google.com/file/d/1gsbovpSAEU8m2aZjo3DOubqs1dkscTmC/view?usp=sharing" download>
-            <img src={SV006} alt="Imagen 20"></img>
-        </a>
     </div>
+
+
+
+      <div class="svimage" id="second-set-administrativo">
+      <LoginButton /> 
+      </div>
+      <button className="show-more-button2" onClick={mostrarMasAdministrativo}>
+        Mostrar más
+      </button>
     </div>
   );
 };
@@ -97,6 +104,19 @@ return (
 function mostrarMas() {
   var secondSet = document.getElementById("second-set");
   var button = document.querySelector(".show-more-button");
+
+  if (secondSet.style.display === "none" || secondSet.style.display === "") {
+    secondSet.style.display = "flex";
+    button.textContent = "Mostrar menos";
+  } else {
+    secondSet.style.display = "none";
+    button.textContent = "Mostrar más";
+  }
+}
+
+function mostrarMasAdministrativo() {
+  var secondSet = document.getElementById("second-set-administrativo");
+  var button = document.querySelector(".show-more-button2");
 
   if (secondSet.style.display === "none" || secondSet.style.display === "") {
     secondSet.style.display = "flex";

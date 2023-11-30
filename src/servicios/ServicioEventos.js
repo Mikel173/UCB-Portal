@@ -10,4 +10,8 @@ export class ServicioEventos {
   postEvento(evento) {
     return axios.post(this.baseUrl + "eventos/", evento).then((res) => res.data);
   }
+
+  putEvento(evento) {
+    return axios.put(this.baseUrl + "eventos/", evento).then((res) => res.data);
+  }
 }

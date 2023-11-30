@@ -1,13 +1,13 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 
-function CardResearchInstitute(props) {
+function CardResearchCenters(props) {
   // Función para convertir las líneas de investigación en una lista con viñetas
-  const renderLineasInvestigacion = () => {
-    const lineasInvestigacionArray = props.lineasInvestigacion.split(';');
+  const renderDescripcion = () => {
+    const descripcionArray = props.descripcion.split(';');
     return (
       <ul>
-        {lineasInvestigacionArray.map((linea, index) => (
+        {descripcionArray.map((linea, index) => (
           <li key={index}>{linea.trim()}</li>
         ))}
       </ul>
@@ -27,10 +27,8 @@ function CardResearchInstitute(props) {
           )}
         </div>
         {/* Renderizar la lista directamente aquí, fuera de cualquier párrafo */}
-        <strong>Líneas de Investigación:</strong>
-        {renderLineasInvestigacion()}
+        {renderDescripcion()}
         <Card.Text>
-          {props.descripcion}
           <br />
           {props.carrera.nombre}
           <br />
@@ -43,4 +41,4 @@ function CardResearchInstitute(props) {
   );
 }
 
-export default CardResearchInstitute;
+export default CardResearchCenters;

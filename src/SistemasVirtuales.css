@@ -53,6 +53,10 @@
     display: none;
 }
 
+#second-set-administrativo {
+    display: none;
+}
+
 .show-more-button {
     display: block;
     margin: 20px auto;
@@ -63,3 +67,37 @@
     border-radius: 5px;
     cursor: pointer;
 }
+.show-more-button2 {
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.new-button {
+    display: inline-block;
+    margin: 20px;
+    padding: 0; 
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: filter 0.3s ease-in-out;
+}
+
+.new-button img {
+    width: 250px;
+    height: 250px;
+    border-radius: 15px;
+    transition: filter 0.3s ease-in-out;
+}
+
+.new-button:hover img {
+    filter: brightness(80%);
+}
+
+/* ... (Estilos posteriores) */

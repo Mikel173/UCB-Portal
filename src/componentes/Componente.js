@@ -5,6 +5,7 @@ import RE002 from '../imagenes/RE002.png';
 import RE003 from '../imagenes/RE003.png';
 import RE004 from '../imagenes/RE004.png';
 import RE005 from '../imagenes/RE005.png';
+import { Link } from 'react-router-dom';
 const Componente = () => {
 return (
     <div className="body-styling">
@@ -43,7 +44,9 @@ return (
     <div className="componente">
         <img src={RE005} alt="Imagen 5" />
         <div className="descripcion">
-        <h2 className='Subtitulos'>Alumni</h2>
+        <h2 className='Subtitulos'>
+        <Link to="/portal-egresados" className='Subtitulos'>Alumni</Link>
+        </h2>
         <p>AlumniUCB es una asociación de egresados de la Universidad Católica Boliviana, que busca mantener el vínculo entre ellos y la institución</p>
         </div>
     </div>
