@@ -107,7 +107,28 @@ class Inicio extends Component {
           <div className="image-container" style={{ width: '100%', height: '50%' }}>
             <CarouselComponent />
           </div>
-
+          <Container className="descripcion-carousel">
+          <Container className="titulos">
+            <h2>
+              DESCUBRE LA EXPERIENCIA UCB
+            </h2>
+          </Container>
+          <p>
+            En la Universidad Católica Boliviana San Pablo La Paz, nos esforzamos por brindar una experiencia educativa excepcional. Nuestro compromiso va más allá de la enseñanza académica; buscamos formar destacados profesionales que sean agentes de cambio con valores humanos e identidad católica.
+          </p>
+          <p>
+            Contamos con una infraestructura de vanguardia equipada con los mejores equipos tecnológicos y comodidades para que los estudiantes desarrollen sus capacidades teórico–prácticas. Además, ofrecemos espacios recreativos, una destacada biblioteca y Wi-Fi gratuito en todo el campus.
+          </p>
+          <p>
+            Nos distinguimos por nuestra calidad académica respaldada por un distinguido plantel docente con capacitación a nivel de maestría y doctorado. Nuestro modelo de educación por competencias incluye mallas curriculares actualizadas para satisfacer las demandas del mercado laboral nacional e internacional.
+          </p>
+          <p>
+            Brindamos amplias oportunidades a través de programas de intercambio con más de 200 universidades en todo el mundo. Además, ofrecemos diversas becas de estudio y programas de empleabilidad para facilitar la rápida inserción laboral de nuestros graduados.
+          </p>
+          <p>
+            Nuestra oferta educativa va más allá de las aulas. Los estudiantes pueden participar en una variedad de actividades, incluyendo cursos, talleres, capacitaciones, centros de idiomas y postgrados. Fomentamos una vida universitaria dinámica con centros de estudiantes, sociedades científicas, talleres culturales, voluntariados y clubes deportivos para fortalecer el crecimiento personal.
+          </p>
+        </Container>
           <Container className="titulos">
             <h2>
               Próximos eventos
