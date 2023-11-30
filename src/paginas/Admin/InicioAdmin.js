@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { withAuthenticationRequired } from '@auth0/auth0-react';
+import React, { useEffect, useState } from 'react';
+import { withAuthenticationRequired, useAuth0 } from '@auth0/auth0-react';
 import { ServicioEventos } from '../../servicios/ServicioEventos';
 import { ServicioNoticias } from '../../servicios/ServicioNoticias';
 import Container from 'react-bootstrap/Container';
@@ -12,54 +12,54 @@ import FormNoticia from '../../componentes/Forms/FormNoticia';
 import { LogoutButton } from '../../componentes/Logout';
 import CardUpdate from '../../componentes/CardUpdate';
 
-class InicioAdmin extends Component {
-  constructor() {
-    super();
-    this.state = {
-      events: [],
-      news: [],
-      showEventoForm: false,
-      showNoticiaForm: false,
-    };
-    this.servicioEventos = new ServicioEventos();
-    this.servicioNoticias = new ServicioNoticias();
-  }
+const InicioAdmin = () => {
+  const { user } = useAuth0();
+  const [events, setEvents] = useState([]);
+  const [news, setNews] = useState([]);
+  const [showEventoForm, setShowEventoForm] = useState(false);
+  const [showNoticiaForm, setShowNoticiaForm] = useState(false);
 
-  componentDidMount() {
-    this.servicioEventos.getAll().then((data) => {
-      this.setState({ events: data.data });
+  const servicioEventos = new ServicioEventos();
+  const servicioNoticias = new ServicioNoticias();
+
+  useEffect(() => {
+    servicioEventos.getAll().then((data) => {
+      setEvents(data.data);
     });
 
-    this.servicioNoticias.getAll().then((data) => {
-      this.setState({ news: data.data });
+    servicioNoticias.getAll().then((data) => {
+      setNews(data.data);
     });
-  }
+  }, []);
 
-  handleShowEventoForm = () => {
-    this.setState({ showEventoForm: true, showNoticiaForm: false });
+  const handleShowEventoForm = () => {
+    setShowEventoForm(true);
+    setShowNoticiaForm(false);
   };
 
-  handleShowNoticiaForm = () => {
-    this.setState({ showNoticiaForm: true, showEventoForm: false });
+  const handleShowNoticiaForm = () => {
+    setShowNoticiaForm(true);
+    setShowEventoForm(false);
   };
 
-  handleCloseForm = () => {
-    this.setState({ showEventoForm: false, showNoticiaForm: false });
+  const handleCloseForm = () => {
+    setShowEventoForm(false);
+    setShowNoticiaForm(false);
   };
 
-  render() {
-    return (
-      <div className="App">
-        <div className="contenedor-principal">
-          <div className="image-container" style={{ width: '100%', height: '50%' }}>
-            <CarouselComponent />
-          </div>
+  return (
+    <div className="App">
+      <div className="contenedor-principal">
+        <div className="image-container" style={{ width: '100%', height: '50%' }}>
+          <CarouselComponent />
+        </div>
 
-          <Container className="titulos">
-            <h2>Próximos eventos</h2>
-          </Container>
+        <Container className="titulos">
+          <h2>Próximos eventos</h2>
+        </Container>
 
-          {this.state.events && this.state.events.map((event) => (
+        {events &&
+          events.map((event) => (
             <div key={event.eventoId} className="card-container">
               <CardComponent
                 key={event.eventoId}
@@ -69,38 +69,45 @@ class InicioAdmin extends Component {
                 description={event.descripcion}
                 enlaceImagen={event.enlaceImagen}
               />
-              <CardUpdate tipoFormulario="evento" onUpdate={() => this.servicioEventos.getAll()} existingData={event} />
+              <CardUpdate tipoFormulario="evento" onUpdate={() => servicioEventos.getAll()} existingData={event} />
             </div>
           ))}
 
-          <CardPlus onAgregarEvento={() => this.servicioEventos.getAll()} tipoFormulario="evento" />          
-          
-          <Container className="titulos">
-            <h2>Noticias</h2>
-          </Container>
+        <CardPlus onAgregarEvento={() => servicioEventos.getAll()} tipoFormulario="evento" />
 
-          {this.state.news && this.state.news.map((news) => (
-            <div key={news.noticiaId} className="card-container">
+        <Container className="titulos">
+          <h2>Noticias</h2>
+        </Container>
+
+        {news &&
+          news.map((newsItem) => (
+            <div key={newsItem.noticiaId} className="card-container">
               <CardNews
-                key={news.noticiaId}
-                fechaPublicacion={news.fechaPublicacion}
-                title={news.titulo}
-                description={news.contenido}
-                enlaceImagen={news.enlaceImagen}
+                key={newsItem.noticiaId}
+                fechaPublicacion={newsItem.fechaPublicacion}
+                title={newsItem.titulo}
+                description={newsItem.contenido}
+                enlaceImagen={newsItem.enlaceImagen}
               />
-              <CardUpdate tipoFormulario="noticia" onUpdate={() => this.servicioNoticias.getAll()} existingData={news} />            </div>
+              <CardUpdate tipoFormulario="noticia" onUpdate={() => servicioNoticias.getAll()} existingData={newsItem} />
+            </div>
           ))}
 
-          <CardPlus onAgregarNoticia={() => this.servicioNoticias.getAll()} tipoFormulario="noticia" />
-          {/* Mostrar el formulario correspondiente según el estado */}
-          {this.state.showEventoForm && <FormEvento onCloseForm={this.handleCloseForm} />}
-          {this.state.showNoticiaForm && <FormNoticia onCloseForm={this.handleCloseForm} />}
-           <LogoutButton />
+        <CardPlus onAgregarNoticia={() => servicioNoticias.getAll()} tipoFormulario="noticia" />
+        {/* Mostrar el formulario correspondiente según el estado */}
+        {showEventoForm && <FormEvento onCloseForm={handleCloseForm} />}
+        {showNoticiaForm && <FormNoticia onCloseForm={handleCloseForm} />}
+        <LogoutButton />
 
-        </div>
+        {/* Mostrar el correo electrónico del usuario */}
+        {user && (
+          <div>
+            <p>Correo Electrónico: {user.email}</p>
+          </div>
+        )}
       </div>
-    );
-  }
-}
-//export default InicioAdmin;
- export default withAuthenticationRequired(InicioAdmin);
+    </div>
+  );
+};
+
+export default withAuthenticationRequired(InicioAdmin);

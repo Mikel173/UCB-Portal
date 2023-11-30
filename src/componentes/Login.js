@@ -4,11 +4,11 @@ import SV005 from '../imagenes/SV005.png';
 import '../SistemasVirtuales.css';
 
 export const LoginButton = () => {
-    const { loginWithRedirect } = useAuth0();
+  const { loginWithRedirect } = useAuth0();
 
-    return (
-        <button className="new-button" onClick={() => loginWithRedirect()}>
-        <img src={SV005} alt="Login" />
+  return (
+      <button className="new-button" onClick={() => loginWithRedirect({ redirectUri: 'http://localhost:3000/admin' })}>
+          <img src={SV005} alt="Login" />
       </button>
-    );
+  );
 };
