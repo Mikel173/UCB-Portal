@@ -147,7 +147,11 @@ const AdmisionYBecas = () => {
           <li>Presentarse a la convocatoria del taller o deporte.</li>
         </ul>
       </div>
-
+      <div style={{ textAlign: 'center' }}>
+        <h2 style={estiloEncabezado}>
+        DESCUENTOS
+      </h2>
+    </div>
       <div className="container mt-5">
       <div className="row">
         <div className="col-md-4">
