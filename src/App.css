@@ -224,3 +224,90 @@ h5 {
   display: flex;
   gap: 10px; /* Ajusta el valor según el espacio que quieras entre los iconos */
 }
+
+
+.ProgEmpConteiener {
+  max-width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.ProgEmpConteiener p {
+  margin-bottom: 15px;
+}
+
+.ProgEmpConteiener img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 15px;
+}
+
+.linkPE, .ProgEmpConteiener a {
+  margin-top: 15px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .ProgEmpConteiener {
+    max-width: 100%;
+    padding: 10px;
+  }
+}
+.Qr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center; /* Asegúrate de centrar el texto dentro del div */
+}
+
+.Qr img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px; /* Ajusta según sea necesario */
+}
+
+.linkPE {
+  display: block;
+  margin-top: 10px; /* Ajusta según sea necesario */
+}
+
+/*PAra la pagina de feria*/
+.FeriaConteiner {
+  max-width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: justify; /* Ajusta el texto justificado */
+}
+
+.FeriaConteiner p {
+  margin-bottom: 15px;
+  font-size: 18px; /* Ajusta el tamaño de fuente según sea necesario */
+}
+
+.FeriaConteiner iframe {
+  display: block;
+  margin: 0 auto; /* Centra el video horizontalmente */
+  max-width: 100%;
+
+}
+
+.imagencover {
+  text-align: center;
+  margin-top: 20px; /* Ajusta según sea necesario */
+}
+
+.imagencover img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .FeriaConteiner {
+    max-width: 100%;
+    padding: 10px;
+  }
+  /**/
+}

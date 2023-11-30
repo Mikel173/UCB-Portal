@@ -12,11 +12,13 @@ import PortalEgresados from './paginas/PortalEgresados';
 import NavbarComponent from './componentes/Navbar';
 import InvestigacionAdmin from './paginas/Admin/InvestigacionAdmin';
 import FooterComponent from './componentes/FooterComponent';
+import ProgramaEmpleabilidad from './paginas/ProgramaEmpleabilidad';
+import FeriaEmpleo from './paginas/FeriaEmpleo';
 
 function App() {
   return (
     <div>
-      <NavbarComponent />
+      <NavbarComponent /> 
       <Routes>
         <Route path="/" element={<Inicio />} />
         <Route path="/secciones-academicas" element={<SeccionesAcademicas />} />
@@ -26,11 +28,14 @@ function App() {
         <Route path="/recursos-estudiantes" element={<RecursosEstudiantes />} />
         <Route path="/recursos-servicio" element={<RecursosServicio />} />
         <Route path="/portal-egresados" element={<PortalEgresados />} />
+        <Route path="/programa-empleabilidad" element={<ProgramaEmpleabilidad />} />
+        <Route path="/feria-empleo" element={<FeriaEmpleo />} />
         <Route path="*" element={<h1>404: Not Found</h1>} />
         <Route path="/admin" element={<InicioAdmin />} />
         <Route path="/admin/investigacion" element={<InvestigacionAdmin />} />
       </Routes>
       <FooterComponent />
+      /**/
     </div>
   );
 }
