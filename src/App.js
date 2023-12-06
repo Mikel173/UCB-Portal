@@ -10,6 +10,7 @@ import RecursosEstudiantes from './paginas/RecursosEstudiantes';
 import RecursosServicio from './paginas/RecursosServicio';
 import PortalEgresados from './paginas/PortalEgresados';
 import NavbarComponent from './componentes/Navbar';
+import NavbarAdmin from './componentes/NavbarAdmin';
 import InvestigacionAdmin from './paginas/Admin/InvestigacionAdmin';
 import FooterComponent from './componentes/FooterComponent';
 import ProgramaEmpleabilidad from './paginas/ProgramaEmpleabilidad';
@@ -18,7 +19,26 @@ import FeriaEmpleo from './paginas/FeriaEmpleo';
 function App() {
   return (
     <div>
-      <NavbarComponent /> 
+      {/* Navbar para sección principal */}
+      <Routes>
+        <Route path="/" element={<NavbarComponent />} />
+        <Route path="/secciones-academicas" element={<NavbarComponent />} />
+        <Route path="/admision-y-becas" element={<NavbarComponent />} />
+        <Route path="/plataforma-en-linea" element={<NavbarComponent />} />
+        <Route path="/investigacion" element={<NavbarComponent />} />
+        <Route path="/recursos-estudiantes" element={<NavbarComponent />} />
+        <Route path="/recursos-servicio" element={<NavbarComponent />} />
+        <Route path="/portal-egresados" element={<NavbarComponent />} />
+        <Route path="/programa-empleabilidad" element={<NavbarComponent />} />
+        <Route path="/feria-empleo" element={<NavbarComponent />} />
+      </Routes>
+
+      {/* Navbar para sección de administración */}
+      <Routes>
+        <Route path="/admin/*" element={<NavbarAdmin />} />
+      </Routes>
+
+      {/* Rutas para la aplicación */}
       <Routes>
         <Route path="/" element={<Inicio />} />
         <Route path="/secciones-academicas" element={<SeccionesAcademicas />} />
@@ -31,11 +51,13 @@ function App() {
         <Route path="/programa-empleabilidad" element={<ProgramaEmpleabilidad />} />
         <Route path="/feria-empleo" element={<FeriaEmpleo />} />
         <Route path="*" element={<h1>404: Not Found</h1>} />
+
+        {/* Rutas específicas de administración */}
         <Route path="/admin" element={<InicioAdmin />} />
         <Route path="/admin/investigacion" element={<InvestigacionAdmin />} />
       </Routes>
+
       <FooterComponent />
-      /**/
     </div>
   );
 }
