@@ -15,7 +15,7 @@ import FooterComponent from './componentes/FooterComponent';
 import ProgramaEmpleabilidad from './paginas/ProgramaEmpleabilidad';
 import FeriaEmpleo from './paginas/FeriaEmpleo';
 import CareerView from './paginas/CareerView';
-
+import NavbarAdmin from './componentes/NavbarAdmin';
 
 function App() {
   return (
@@ -37,7 +37,7 @@ function App() {
 
       {/* Navbar para sección de administración */}
       <Routes>
-        <Route path="/admin/*" element={<NavbarComponent />} />
+        <Route path="/admin/*" element={<NavbarAdmin />} />
       </Routes>
 
       {/* Rutas para la aplicación */}

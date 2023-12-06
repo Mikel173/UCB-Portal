@@ -1,14 +1,14 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import SV005 from '../imagenes/SV005.png';
+import SV012 from '../imagenes/SV012.png';
 import '../SistemasVirtuales.css';
 
 export const LoginButton = () => {
-  const { loginWithRedirect } = useAuth0();
+    const { loginWithRedirect } = useAuth0();
 
-  return (
-      <button className="new-button" onClick={() => loginWithRedirect({ redirectUri: 'http://localhost:3000/admin' })}>
-          <img src={SV005} alt="Login" />
+    return (
+        <button className="new-button" onClick={() => loginWithRedirect({redirectUri: 'http://localhost:3000/admin'})}>
+        <img src={SV012} alt="Login" />
       </button>
-  );
+    );
 };

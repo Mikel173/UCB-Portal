@@ -140,5 +140,5 @@ class InvestigacionAdmin extends Component {
   }
 }
 
-export default InvestigacionAdmin;
-//export default withAuthenticationRequired(InvestigacionAdmin);
+//export default InvestigacionAdmin;
+export default withAuthenticationRequired(InvestigacionAdmin);
