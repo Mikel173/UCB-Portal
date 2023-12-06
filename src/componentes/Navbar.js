@@ -27,19 +27,18 @@ function NavbarComponent() {
               <Nav.Link as={Link} to="/" className="navbar-link">Inicio</Nav.Link>
 
               <NavDropdown title="Academico" id="academico-nav-dropdown">
-                <NavDropdown.Item as={Link} to="/secciones-academicas">Secciones academicas</NavDropdown.Item>
+                {/* <NavDropdown.Item as={Link} to="/secciones-academicas">Secciones academicas</NavDropdown.Item> */}
                 <NavDropdown.Item as={Link} to="/admision-y-becas">Admision y becas</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/plataforma-en-linea">Plataforma de aprendizaje en linea</NavDropdown.Item>
               </NavDropdown>
 
               <Nav.Link as={Link} to="/investigacion">Investigacion</Nav.Link>
-              <Nav.Link as={Link} to="#campus" className="navbar-link">Campus</Nav.Link>
-              <Nav.Link href='https://www.bibvirtual.ucb.edu.bo/' target='_blank'>Biblioteca</Nav.Link>
+              {/* <Nav.Link as={Link} to="#campus" className="navbar-link">Campus</Nav.Link> */}
+              <Nav.Link as={Link} href='https://www.bibvirtual.ucb.edu.bo/' target='_blank'>Biblioteca</Nav.Link>
 
               <NavDropdown title="Recursos" id="recursos-nav-dropdown">
                 <NavDropdown.Item as={Link} to="/recursos-estudiantes">Recursos Estudiantes</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/recursos-servicio">Recursos Servicio</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/recursos-docentes">Recursos Docentes</NavDropdown.Item>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>

@@ -14,12 +14,25 @@ import Container from 'react-bootstrap/Container';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 
+import { ServicioFacultades } from '../servicios/ServicioFacultades';
+import { ServicioCarreras } from '../servicios/ServicioCarreras';
+import NavbarComponent from '../componentes/Navbar';
+import CardComponent2 from '../componentes/CardComponent2';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import FooterComponent from '../componentes/FooterComponent';
+
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
+
 class Inicio extends Component {
   constructor() {
     super();
     this.state = {
       events: [],
       news: [],
+      facultad: [],
+      carrerasPorFacultad: {},
       showEventoForm: false,
       showNoticiaForm: false,
       showNotificationModal: false,
@@ -28,6 +41,8 @@ class Inicio extends Component {
     this.servicioEventos = new ServicioEventos();
     this.servicioNoticias = new ServicioNoticias();
     this.servicioSuscripcion = new ServicioSuscripcion(); // Inicializa el servicio de suscripción
+    this.servicioFacultades = new ServicioFacultades();
+    this.servicioCarreras = new ServicioCarreras();
   }
 
   componentDidMount() {
@@ -36,8 +51,45 @@ class Inicio extends Component {
     });
 
     this.servicioNoticias.getAll().then((data) => {
+      console.log(data.data);
       this.setState({ news: data.data });
     });
+    this.servicioFacultades.getAll().then((response) => {
+      if(response.status === 200 && Array.isArray(response.data)) {
+          this.setState({ facultad: response.data }, () => {
+              // Cargar las carreras después de que las facultades se han cargado
+              this.state.facultad.forEach(facultad => {
+                  this.servicioCarreras.getCarrerasPorFacultad(facultad.facultadId)
+                      .then(carreras => {
+                          this.setState(prevState => ({
+                              carrerasPorFacultad: {
+                                  ...prevState.carrerasPorFacultad,
+                                  [facultad.facultadId]: carreras
+                              }
+                          }));
+                      })
+                      .catch(error => console.error("Error al cargar carreras para la facultad", facultad.facultadId, error));
+              });
+          });
+      } else {
+          console.error("Respuesta no válida del servicio de facultades", response);
+      }
+  }).catch(error => {
+      console.error("Error al cargar facultades", error);
+  });
+  }
+
+  getColorClass(index) {
+    const colors = [
+      "facultad-economia",
+      "facultad-ingenieria",
+      "facultad-sociales",
+      "facultad-arquitectura",
+      "facultad-derecho",
+      "facultad-medicina",
+      // ... más colores si son necesarios
+    ];
+    return colors[index % colors.length]; // Esto ciclará entre los colores si hay más facultades que colores
   }
 
   handleShowEventoForm = () => {
@@ -207,6 +259,21 @@ class Inicio extends Component {
           {/* Mostrar el formulario correspondiente según el estado */}
           {this.state.showEventoForm && <FormEvento onCloseForm={this.handleCloseForm} />}
           {this.state.showNoticiaForm && <FormNoticia onCloseForm={this.handleCloseForm} />}
+
+          <Container className="titulos">
+                    <h2>Facultades y Carreras</h2>
+                    <Row>
+                        {this.state.facultad.map((facultad, index) => (
+                            <Col md={3} className="mb-4" key={facultad.facultadId}>
+                                <CardComponent2 
+                                    title={facultad.nombre} 
+                                    colorClass={this.getColorClass(index)}
+                                    carreras={this.state.carrerasPorFacultad[facultad.facultadId]}
+                                />
+                            </Col>
+                        ))}
+                    </Row>
+          </Container>
         </div>
       </div>
     );
