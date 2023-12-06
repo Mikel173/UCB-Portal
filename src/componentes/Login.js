@@ -7,7 +7,7 @@ export const LoginButton = () => {
     const { loginWithRedirect } = useAuth0();
 
     return (
-        <button className="new-button" onClick={() => loginWithRedirect()}>
+        <button className="new-button" onClick={() => loginWithRedirect({redirectUri: 'http://localhost:3000/admin'})}>
         <img src={SV012} alt="Login" />
       </button>
     );
