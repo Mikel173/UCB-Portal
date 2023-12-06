@@ -15,6 +15,7 @@ import InvestigacionAdmin from './paginas/Admin/InvestigacionAdmin';
 import FooterComponent from './componentes/FooterComponent';
 import ProgramaEmpleabilidad from './paginas/ProgramaEmpleabilidad';
 import FeriaEmpleo from './paginas/FeriaEmpleo';
+import CareerView from './paginas/CareerView';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
       {/* Navbar para sección principal */}
       <Routes>
         <Route path="/" element={<NavbarComponent />} />
+        <Route path="/carrera/:careerId" element={<NavbarComponent />} />
         <Route path="/secciones-academicas" element={<NavbarComponent />} />
         <Route path="/admision-y-becas" element={<NavbarComponent />} />
         <Route path="/plataforma-en-linea" element={<NavbarComponent />} />
@@ -42,6 +44,7 @@ function App() {
       {/* Rutas para la aplicación */}
       <Routes>
         <Route path="/" element={<Inicio />} />
+        <Route path="/carrera/:careerId" element={<CareerView />} />
         <Route path="/secciones-academicas" element={<SeccionesAcademicas />} />
         <Route path="/admision-y-becas" element={<AdmisionYBecas />} />
         <Route path="/plataforma-en-linea" element={<PlataformaEnLinea />} />
