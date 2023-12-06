@@ -10,7 +10,7 @@ return (
         <img src={SO1} alt="Imagen 1" />
     </div>
 
-    <div className="componenteSO1">
+    <div className="componenteSO">
         <div className="descripcion">
         <p>Paso 1</p>
         <p>Ingresa por el link de Servicio de Orientación Vocacional que te llegará por Whatsapp en las fechas programadas.</p>
@@ -22,8 +22,8 @@ return (
         </div>
     </div>
 
-    <div className="componenteSO2">
-        <div className="descripcionSO">
+    <div className="componenteSO">
+        <div className="descripcion">
         <p>El Departamento de Psicología, conjuntamente con el Departamento de Admisión y Orientación, brinda un servicio de Orientación Vocacional virtual personalizado y en forma gratuita, a todos los estudiantes que no se encuentren seguros sobre la elección de su futura carrera profesional, con la finalidad de poder ayudar a los estudiantes a elegir una carrera acorde a sus habilidades, vocación y competencias.</p>
         <p>Contamos con un equipo de especialistas en formación humana que apoyan en todo el proceso a los estudiantes; permitiéndoles identificar sus habilidades, sus intereses y características de su personalidad por medio de pruebas.</p>
         <p>Los resultados se constituyen en una herramienta útil que ayudará al estudiante en la definición de su plan de vida profesional.</p>

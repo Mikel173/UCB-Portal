@@ -186,18 +186,27 @@ h5 {
   text-align: center;
 }
 
+.body-stylingSO {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
 .componenteSO {
   width: 45%;
   margin: 35px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   box-sizing: border-box;
-  flex: 30%;
 }
 
 .componenteSO img {
   width: 100%;
-  height: 100%;
+  height: auto;
   display: block;
 }
 
@@ -208,17 +217,10 @@ h5 {
 
 @media screen and (max-width: 768px) {
   .componenteSO {
-    flex: 100%; /* Take up the full width on smaller screens */
+    flex: 100%;
+    padding: 10px; /* Take up the full width on smaller screens */
   }
 }
-
-.componente .Subtitulos {
-  font-family: 'Oswald', sans-serif;
-  color: #004070;
-  padding: 15px;
-  text-align: center; /* Para centrar el texto */
-}
-
 
 .social-icons {
   display: flex;
