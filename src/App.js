@@ -10,12 +10,12 @@ import RecursosEstudiantes from './paginas/RecursosEstudiantes';
 import RecursosServicio from './paginas/RecursosServicio';
 import PortalEgresados from './paginas/PortalEgresados';
 import NavbarComponent from './componentes/Navbar';
+import NavbarAdmin from './componentes/NavbarAdmin';
 import InvestigacionAdmin from './paginas/Admin/InvestigacionAdmin';
 import FooterComponent from './componentes/FooterComponent';
 import ProgramaEmpleabilidad from './paginas/ProgramaEmpleabilidad';
 import FeriaEmpleo from './paginas/FeriaEmpleo';
-import CareerView from './paginas/CareerView';
-import NavbarAdmin from './componentes/NavbarAdmin';
+
 
 function App() {
   return (
@@ -32,7 +32,6 @@ function App() {
         <Route path="/portal-egresados" element={<NavbarComponent />} />
         <Route path="/programa-empleabilidad" element={<NavbarComponent />} />
         <Route path="/feria-empleo" element={<NavbarComponent />} />
-        <Route path="/carrera/:careerId" element={<NavbarComponent />} />
       </Routes>
 
       {/* Navbar para sección de administración */}
@@ -52,7 +51,6 @@ function App() {
         <Route path="/portal-egresados" element={<PortalEgresados />} />
         <Route path="/programa-empleabilidad" element={<ProgramaEmpleabilidad />} />
         <Route path="/feria-empleo" element={<FeriaEmpleo />} />
-        <Route path="/carrera/:careerId" element={<CareerView />} />
         <Route path="*" element={<h1>404: Not Found</h1>} />
 
         {/* Rutas específicas de administración */}

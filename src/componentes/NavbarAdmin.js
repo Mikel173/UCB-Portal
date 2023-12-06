@@ -25,10 +25,7 @@ function NavbarAdmin() {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link as={Link} to="/admin" className="navbar-link">Inicio</Nav.Link>
-
               <Nav.Link as={Link} to="/admin/investigacion">Investigacion</Nav.Link>
-
-
             </Nav>
           </Navbar.Collapse>
         </Container>
