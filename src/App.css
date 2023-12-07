@@ -71,8 +71,6 @@ h5 {
   text-align: center;
 }
 
-
-
 .navbar-toggler-icon {
   color: white; /* Cambia el color del icono de la hamburguesa */
 }
@@ -92,6 +90,13 @@ h5 {
 .navbar-toggler {
   border: none; /* Elimina el borde del botón de la hamburguesa */
   outline: none; /* Elimina el contorno del botón de la hamburguesa */
+}
+
+#academico-nav-dropdown .dropdown-menu.show .nav-link {
+  /* Agrega tus estilos personalizados aquí */
+  /* Por ejemplo: */
+  color: #3498db; /* Color del texto */
+  /* Otros estilos según tus preferencias */
 }
 
 .custom-bg {
@@ -116,6 +121,10 @@ h5 {
 /* Agrega un estilo para el enlace activo en el menú */
 .navbar-nav .nav-item .nav-link.active {
   color: #ffffff; /* Cambia el color del enlace activo */
+}
+
+.navbar-nav .nav-item.dropdown:hover .nav-link {
+  color: #007bff !important; /* Cambia el color del texto cuando el mouse está sobre el NavDropdown */
 }
 
 /* Ajusta los estilos para dispositivos más pequeños */
