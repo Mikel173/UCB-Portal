@@ -34,7 +34,7 @@ function NavbarComponent() {
 
               <Nav.Link as={Link} to="/investigacion">Investigacion</Nav.Link>
               {/* <Nav.Link as={Link} to="#campus" className="navbar-link">Campus</Nav.Link> */}
-              <Nav.Link as={Link} href='https://www.bibvirtual.ucb.edu.bo/' target='_blank'>Biblioteca</Nav.Link>
+              <Nav.Link href='https://www.bibvirtual.ucb.edu.bo/' target='_blank' rel='noopener noreferrer'>Biblioteca</Nav.Link>
 
               <NavDropdown title="Recursos" id="recursos-nav-dropdown">
                 <NavDropdown.Item as={Link} to="/recursos-estudiantes">Recursos Estudiantes</NavDropdown.Item>
