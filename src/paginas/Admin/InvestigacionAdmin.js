@@ -25,6 +25,7 @@ class InvestigacionAdmin extends Component {
       cientistSocieties: [],
       researchCenters: [],
       researchGroups: [],
+      dataLoaded: false, // Nuevo estado para verificar si los datos ya se cargaron
     };
     this.servicioInstitutosInvestigacion = new ServicioInstitutosInvestigacion();
     this.servicioSociedadesCientificas = new ServicioSociedadesCientificas();
@@ -33,25 +34,32 @@ class InvestigacionAdmin extends Component {
   }
 
   componentDidMount() {
+    // Verificar si los datos ya se cargaron antes de hacer nuevas llamadas
+    if (!this.state.dataLoaded) {
+      this.fetchData();
+    }
+  }
+
+  // Función para cargar datos desde el backend
+  fetchData() {
     this.servicioInstitutosInvestigacion.getAll().then((data) => {
-      console.log(data.data);
       this.setState({ researchItems: data.data });
     });
 
     this.servicioSociedadesCientificas.getAll().then((data) => {
-      console.log(data.data);
       this.setState({ cientistSocieties: data.data });
     });
 
     this.servicioCentrosInvestigacion.getAll().then((data) => {
-      console.log(data.data);
       this.setState({ researchCenters: data.data });
     });
 
     this.servicioGruposInvestigacion.getAll().then((data) => {
-      console.log(data.data);
       this.setState({ researchGroups: data.data });
     });
+
+    // Actualizar el estado para indicar que los datos se han cargado
+    this.setState({ dataLoaded: true });
   }
 
   render() {

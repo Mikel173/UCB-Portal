@@ -5,6 +5,14 @@ import LOGOUT from '../imagenes/logout.png';
 export const LogoutButton = () => {
     const { logout } = useAuth0();
 
+    const handleLogout = () => {
+        // Borrar el token del localStorage
+        localStorage.removeItem('authToken');
+
+        // Hacer logout
+        logout({ returnTo: window.location.origin });
+    };
+
     return (
         <button 
             style={{
@@ -14,7 +22,7 @@ export const LogoutButton = () => {
                 top: '10px', // Ajusta la posición desde arriba
                 right: '10px', // Ajusta la posición desde la derecha
             }}
-            onClick={() => logout({ returnTo: window.location.origin })}
+            onClick={handleLogout}
         >
             <img src={LOGOUT} alt="Logout" style={{ width: '40px', height: '40px' }} />
         </button>

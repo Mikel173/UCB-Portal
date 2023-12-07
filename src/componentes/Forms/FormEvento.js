@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Form, Button, Spinner } from 'react-bootstrap';
 import { ServicioEventos } from '../../servicios/ServicioEventos';
 import ServicioImagenes from '../../servicios/ServicioImagenes';
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
 
 const FormEvento = ({ onAgregarEvento, onCerrarFormulario, existingData }) => {
   const [evento, setEvento] = useState({
@@ -14,6 +14,8 @@ const FormEvento = ({ onAgregarEvento, onCerrarFormulario, existingData }) => {
 
   const [archivo, setArchivo] = useState(null);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
   const servicioEventos = new ServicioEventos();
   const servicioImagenes = new ServicioImagenes();
 
@@ -60,6 +62,8 @@ const FormEvento = ({ onAgregarEvento, onCerrarFormulario, existingData }) => {
     e.preventDefault();
 
     try {
+      setLoading(true);
+
       if (existingData) {
         // Si hay datos existentes, realizar la actualización
         await handleUpdateEvento();
@@ -88,6 +92,8 @@ const FormEvento = ({ onAgregarEvento, onCerrarFormulario, existingData }) => {
     } catch (error) {
       console.error('Error al procesar el evento:', error);
       setError('Error al procesar el evento. Por favor, inténtalo de nuevo.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -120,8 +126,22 @@ const FormEvento = ({ onAgregarEvento, onCerrarFormulario, existingData }) => {
       <br />
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <br />
-      <Button variant="primary" type="submit">
-        {existingData ? 'Actualizar Evento' : 'Crear Evento'}
+      <Button variant="primary" type="submit" disabled={loading}>
+        {loading ? (
+          <>
+            <Spinner
+              as="span"
+              animation="border"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+              className="mr-1"
+            />
+            Cargando...
+          </>
+        ) : (
+          existingData ? 'Actualizar Evento' : 'Crear Evento'
+        )}
       </Button>
     </form>
   );

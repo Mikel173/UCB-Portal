@@ -24,7 +24,6 @@ import FooterComponent from '../componentes/FooterComponent';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-
 class Inicio extends Component {
   constructor() {
     super();
@@ -36,7 +35,10 @@ class Inicio extends Component {
       showEventoForm: false,
       showNoticiaForm: false,
       showNotificationModal: false,
-      correo: '', // Campo para el correo
+      showSubscriptionSuccessModal: false,
+      showUnsubscribeSuccessModal: false,
+      isLoading: false,
+      correo: '',
     };
     this.servicioEventos = new ServicioEventos();
     this.servicioNoticias = new ServicioNoticias();
@@ -56,27 +58,27 @@ class Inicio extends Component {
     });
     this.servicioFacultades.getAll().then((response) => {
       if(response.status === 200 && Array.isArray(response.data)) {
-          this.setState({ facultad: response.data }, () => {
-              // Cargar las carreras después de que las facultades se han cargado
-              this.state.facultad.forEach(facultad => {
-                  this.servicioCarreras.getCarrerasPorFacultad(facultad.facultadId)
-                      .then(carreras => {
-                          this.setState(prevState => ({
-                              carrerasPorFacultad: {
-                                  ...prevState.carrerasPorFacultad,
-                                  [facultad.facultadId]: carreras
-                              }
-                          }));
-                      })
-                      .catch(error => console.error("Error al cargar carreras para la facultad", facultad.facultadId, error));
-              });
+        this.setState({ facultad: response.data }, () => {
+          // Cargar las carreras después de que las facultades se han cargado
+          this.state.facultad.forEach(facultad => {
+            this.servicioCarreras.getCarrerasPorFacultad(facultad.facultadId)
+              .then(carreras => {
+                this.setState(prevState => ({
+                  carrerasPorFacultad: {
+                    ...prevState.carrerasPorFacultad,
+                    [facultad.facultadId]: carreras
+                  }
+                }));
+              })
+              .catch(error => console.error("Error al cargar carreras para la facultad", facultad.facultadId, error));
           });
+        });
       } else {
-          console.error("Respuesta no válida del servicio de facultades", response);
+        console.error("Respuesta no válida del servicio de facultades", response);
       }
-  }).catch(error => {
+    }).catch(error => {
       console.error("Error al cargar facultades", error);
-  });
+    });
   }
 
   getColorClass(index) {
@@ -116,6 +118,28 @@ class Inicio extends Component {
     this.setState({ correo: e.target.value });
   };
 
+  showSubscriptionSuccessModal = () => {
+    this.setState({
+      showNotificationModal: false,
+      showSubscriptionSuccessModal: true,
+    });
+  };
+
+  hideSubscriptionSuccessModal = () => {
+    this.setState({ showSubscriptionSuccessModal: false });
+  };
+
+  showUnsubscribeSuccessModal = () => {
+    this.setState({
+      showNotificationModal: false,
+      showUnsubscribeSuccessModal: true,
+    });
+  };
+
+  hideUnsubscribeSuccessModal = () => {
+    this.setState({ showUnsubscribeSuccessModal: false });
+  };
+
   handleEnviarNotificacion = () => {
     const { correo } = this.state;
 
@@ -130,8 +154,9 @@ class Inicio extends Component {
         console.error("Error al suscribirse:", error);
       });
 
-    // Luego, cierra el modal
+    // Luego, cierra el modal y muestra el modal de suscripción exitosa
     this.handleCloseNotificationModal();
+    this.showSubscriptionSuccessModal();
   };
 
   handleDesuscribirse = () => {
@@ -148,8 +173,9 @@ class Inicio extends Component {
         console.error("Error al desuscribirse:", error);
       });
 
-    // Luego, cierra el modal
+    // Luego, cierra el modal y muestra el modal de desuscripción exitosa
     this.handleCloseNotificationModal();
+    this.showUnsubscribeSuccessModal();
   };
 
   render() {
@@ -160,27 +186,27 @@ class Inicio extends Component {
             <CarouselComponent />
           </div>
           <Container className="descripcion-carousel">
-          <Container className="titulos">
-            <h2>
-              DESCUBRE LA EXPERIENCIA UCB
-            </h2>
+            <Container className="titulos">
+              <h2>
+                DESCUBRE LA EXPERIENCIA UCB
+              </h2>
+            </Container>
+            <p>
+              En la Universidad Católica Boliviana San Pablo La Paz, nos esforzamos por brindar una experiencia educativa excepcional. Nuestro compromiso va más allá de la enseñanza académica; buscamos formar destacados profesionales que sean agentes de cambio con valores humanos e identidad católica.
+            </p>
+            <p>
+              Contamos con una infraestructura de vanguardia equipada con los mejores equipos tecnológicos y comodidades para que los estudiantes desarrollen sus capacidades teórico–prácticas. Además, ofrecemos espacios recreativos, una destacada biblioteca y Wi-Fi gratuito en todo el campus.
+            </p>
+            <p>
+              Nos distinguimos por nuestra calidad académica respaldada por un distinguido plantel docente con capacitación a nivel de maestría y doctorado. Nuestro modelo de educación por competencias incluye mallas curriculares actualizadas para satisfacer las demandas del mercado laboral nacional e internacional.
+            </p>
+            <p>
+              Brindamos amplias oportunidades a través de programas de intercambio con más de 200 universidades en todo el mundo. Además, ofrecemos diversas becas de estudio y programas de empleabilidad para facilitar la rápida inserción laboral de nuestros graduados.
+            </p>
+            <p>
+              Nuestra oferta educativa va más allá de las aulas. Los estudiantes pueden participar en una variedad de actividades, incluyendo cursos, talleres, capacitaciones, centros de idiomas y postgrados. Fomentamos una vida universitaria dinámica con centros de estudiantes, sociedades científicas, talleres culturales, voluntariados y clubes deportivos para fortalecer el crecimiento personal.
+            </p>
           </Container>
-          <p>
-            En la Universidad Católica Boliviana San Pablo La Paz, nos esforzamos por brindar una experiencia educativa excepcional. Nuestro compromiso va más allá de la enseñanza académica; buscamos formar destacados profesionales que sean agentes de cambio con valores humanos e identidad católica.
-          </p>
-          <p>
-            Contamos con una infraestructura de vanguardia equipada con los mejores equipos tecnológicos y comodidades para que los estudiantes desarrollen sus capacidades teórico–prácticas. Además, ofrecemos espacios recreativos, una destacada biblioteca y Wi-Fi gratuito en todo el campus.
-          </p>
-          <p>
-            Nos distinguimos por nuestra calidad académica respaldada por un distinguido plantel docente con capacitación a nivel de maestría y doctorado. Nuestro modelo de educación por competencias incluye mallas curriculares actualizadas para satisfacer las demandas del mercado laboral nacional e internacional.
-          </p>
-          <p>
-            Brindamos amplias oportunidades a través de programas de intercambio con más de 200 universidades en todo el mundo. Además, ofrecemos diversas becas de estudio y programas de empleabilidad para facilitar la rápida inserción laboral de nuestros graduados.
-          </p>
-          <p>
-            Nuestra oferta educativa va más allá de las aulas. Los estudiantes pueden participar en una variedad de actividades, incluyendo cursos, talleres, capacitaciones, centros de idiomas y postgrados. Fomentamos una vida universitaria dinámica con centros de estudiantes, sociedades científicas, talleres culturales, voluntariados y clubes deportivos para fortalecer el crecimiento personal.
-          </p>
-        </Container>
           <Container className="titulos">
             <h2>
               Próximos eventos
@@ -246,14 +272,46 @@ class Inicio extends Component {
             </Modal.Body>
             <Modal.Footer>
               {/* Botón de enviar */}
-              <Button variant="primary" onClick={this.handleEnviarNotificacion}>
-                Suscribirse
+              <Button variant="primary" onClick={this.handleEnviarNotificacion} disabled={this.state.isLoading}>
+                {this.state.isLoading ? (
+                  <span>
+                    <i className="fa fa-spinner fa-spin"></i> Enviando...
+                  </span>
+                ) : (
+                  'Suscribirse'
+                )}
               </Button>
               {/* Botón de quitar suscripción */}
-              <Button variant="secondary" onClick={this.handleDesuscribirse}>
-                Desuscribirse
+              <Button variant="secondary" onClick={this.handleDesuscribirse} disabled={this.state.isLoading}>
+                {this.state.isLoading ? (
+                  <span>
+                    <i className="fa fa-spinner fa-spin"></i> Procesando...
+                  </span>
+                ) : (
+                  'Desuscribirse'
+                )}
               </Button>
             </Modal.Footer>
+          </Modal>
+
+          {/* Modal de suscripción exitosa */}
+          <Modal show={this.state.showSubscriptionSuccessModal} onHide={this.hideSubscriptionSuccessModal} centered>
+            <Modal.Header closeButton>
+              <Modal.Title>Suscripción Exitosa</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <p>¡Te has suscrito exitosamente! Recibirás notificaciones sobre nuevos eventos y noticias.</p>
+            </Modal.Body>
+          </Modal>
+
+          {/* Modal de desuscripción exitosa */}
+          <Modal show={this.state.showUnsubscribeSuccessModal} onHide={this.hideUnsubscribeSuccessModal} centered>
+            <Modal.Header closeButton>
+              <Modal.Title>Desuscripción Exitosa</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <p>Te has desuscrito exitosamente. Ya no recibirás notificaciones.</p>
+            </Modal.Body>
           </Modal>
 
           {/* Mostrar el formulario correspondiente según el estado */}
@@ -261,18 +319,18 @@ class Inicio extends Component {
           {this.state.showNoticiaForm && <FormNoticia onCloseForm={this.handleCloseForm} />}
 
           <Container className="titulos">
-                    <h2>Facultades y Carreras</h2>
-                    <Row>
-                        {this.state.facultad.map((facultad, index) => (
-                            <Col md={3} className="mb-4" key={facultad.facultadId}>
-                                <CardComponent2 
-                                    title={facultad.nombre} 
-                                    colorClass={this.getColorClass(index)}
-                                    carreras={this.state.carrerasPorFacultad[facultad.facultadId]}
-                                />
-                            </Col>
-                        ))}
-                    </Row>
+            <h2>Facultades y Carreras</h2>
+            <Row>
+              {this.state.facultad.map((facultad, index) => (
+                <Col md={3} className="mb-4" key={facultad.facultadId}>
+                  <CardComponent2
+                    title={facultad.nombre}
+                    colorClass={this.getColorClass(index)}
+                    carreras={this.state.carrerasPorFacultad[facultad.facultadId]}
+                  />
+                </Col>
+              ))}
+            </Row>
           </Container>
         </div>
       </div>

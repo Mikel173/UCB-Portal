@@ -16,7 +16,7 @@ import FooterComponent from './componentes/FooterComponent';
 import ProgramaEmpleabilidad from './paginas/ProgramaEmpleabilidad';
 import FeriaEmpleo from './paginas/FeriaEmpleo';
 import CareerView from './paginas/CareerView';
-
+import { Navigate } from 'react-router-dom';
 
 function App() {
   return (

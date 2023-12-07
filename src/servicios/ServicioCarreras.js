@@ -22,4 +22,9 @@ export class ServicioCarreras {
                 return res.data;
             });
     }
+
+    postCarreras(carrera) {
+        return axios.post(this.baseUrl + "carreras/", carrera).then(res => res.data);
+    }
+
 }

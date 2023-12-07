@@ -19,7 +19,7 @@ function CardComponent(props) {
         <Card.Body>
           <Container className="titulos">
             <h4>
-              <Card.Title>{props.nombre}</Card.Title>
+              <Card.Title>{props.title}</Card.Title>
             </h4>
           </Container>
           <Card.Text>

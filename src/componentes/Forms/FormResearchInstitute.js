@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
 import { ServicioInstitutosInvestigacion } from '../../servicios/ServicioInstitutosInvestigacion';
 import ServicioImagenes from '../../servicios/ServicioImagenes';
+import { ServicioCarreras } from '../../servicios/ServicioCarreras';
+import { ServicioContacto } from '../../servicios/ServicioContacto';
 
 const FormResearchInstitute = ({ onAgregarInstitutoInvestigacion, onCerrarFormulario, existingData }) => {
   const [nombre, setNombre] = useState('');
@@ -12,9 +15,14 @@ const FormResearchInstitute = ({ onAgregarInstitutoInvestigacion, onCerrarFormul
   const [carreraId, setCarreraId] = useState('');
   const [contactoId, setContactoId] = useState('');
   const [archivo, setArchivo] = useState(null);
+  const [carreras, setCarreras] = useState([]);
+  const [contactos, setContactos] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const servicioInstitutosInvestigacion = new ServicioInstitutosInvestigacion();
   const servicioImagenes = new ServicioImagenes();
+  const servicioCarrera = new ServicioCarreras();
+  const servicioContacto = new ServicioContacto();
 
   useEffect(() => {
     // Si hay datos existentes, actualizar el estado del formulario
@@ -27,6 +35,37 @@ const FormResearchInstitute = ({ onAgregarInstitutoInvestigacion, onCerrarFormul
       setContactoId(existingData.contacto.contactoId); // Suponiendo que la propiedad 'id' existe en el objeto 'contacto'
     }
   }, [existingData]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const carrerasResponse = await servicioCarrera.getAllCarreras();
+        const contactosResponse = await servicioContacto.getAll();
+
+        if (Array.isArray(carrerasResponse.data) && Array.isArray(contactosResponse.data)) {
+          setCarreras(carrerasResponse.data);
+          setContactos(contactosResponse.data);
+
+          if (carrerasResponse.data.length > 0) {
+            setCarreraId(existingData ? existingData.carrera.carreraId : carrerasResponse.data[0].carreraId);
+          }
+
+          if (contactosResponse.data.length > 0) {
+            setContactoId(existingData ? existingData.contacto.contactoId : contactosResponse.data[0].contactoId);
+          }
+        } else {
+          console.error('La respuesta del servidor no contiene un array de datos:', carrerasResponse, contactosResponse);
+        }
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
+      }
+    }
+
+    // Verificar si las carreras y contactos ya se han cargado antes de hacer nuevas llamadas
+    if (carreras.length === 0 || contactos.length === 0) {
+      fetchData();
+    }
+  }, [servicioCarrera, servicioContacto, carreras, contactos, existingData]);
 
   const handleArchivoChange = (e) => {
     const file = e.target.files[0];
@@ -44,6 +83,8 @@ const FormResearchInstitute = ({ onAgregarInstitutoInvestigacion, onCerrarFormul
         enlaceImagen = await servicioImagenes.uploadImagen(archivo);
       }
 
+      setIsLoading(true);
+
       // Determinar si estamos creando un nuevo instituto o actualizando uno existente
       if (existingData) {
         // Actualizar el instituto de investigación existente
@@ -53,8 +94,8 @@ const FormResearchInstitute = ({ onAgregarInstitutoInvestigacion, onCerrarFormul
           enlaceWeb,
           lineasInvestigacion,
           descripcion,
-          carrera: { carreraId: carreraId }, // Suponiendo que la propiedad 'id' es necesaria para la actualización
-          contacto: { contactoId: contactoId }, // Suponiendo que la propiedad 'id' es necesaria para la actualización
+          carrera: { carreraId },
+          contacto: { contactoId },
           enlaceImagen,
         });
       } else {
@@ -64,8 +105,8 @@ const FormResearchInstitute = ({ onAgregarInstitutoInvestigacion, onCerrarFormul
           enlaceWeb,
           lineasInvestigacion,
           descripcion,
-          carrera: { carreraId: carreraId }, // Suponiendo que la propiedad 'id' es necesaria para la creación
-          contacto: { contactoId: contactoId }, // Suponiendo que la propiedad 'id' es necesaria para la creación
+          carrera: { carreraId },
+          contacto: { contactoId },
           enlaceImagen,
         });
       }
@@ -82,7 +123,8 @@ const FormResearchInstitute = ({ onAgregarInstitutoInvestigacion, onCerrarFormul
       onAgregarInstitutoInvestigacion();
     } catch (error) {
       console.error('Error al procesar el Instituto de Investigación:', error);
-      // Manejar el error aquí, puedes mostrar un mensaje al usuario si lo prefieres
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -130,23 +172,25 @@ const FormResearchInstitute = ({ onAgregarInstitutoInvestigacion, onCerrarFormul
       </Form.Group>
 
       <Form.Group controlId="formCarreraId">
-        <Form.Label>ID de Carrera</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Ingrese el ID de la carrera"
-          value={carreraId}
-          onChange={(e) => setCarreraId(e.target.value)}
-        />
+        <Form.Label>Carrera</Form.Label>
+        <Form.Control as="select" value={carreraId} onChange={(e) => setCarreraId(e.target.value)}>
+          {carreras.map((carrera) => (
+            <option key={carrera.carreraId} value={carrera.carreraId}>
+              {carrera.nombre}
+            </option>
+          ))}
+        </Form.Control>
       </Form.Group>
 
       <Form.Group controlId="formContactoId">
-        <Form.Label>ID de Contacto</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Ingrese el ID de contacto"
-          value={contactoId}
-          onChange={(e) => setContactoId(e.target.value)}
-        />
+        <Form.Label>Contacto</Form.Label>
+        <Form.Control as="select" value={contactoId} onChange={(e) => setContactoId(e.target.value)}>
+          {contactos.map((contacto) => (
+            <option key={contacto.contactoId} value={contacto.contactoId}>
+              {contacto.nombre}
+            </option>
+          ))}
+        </Form.Control>
       </Form.Group>
 
       <Form.Group controlId="formArchivo">
@@ -154,8 +198,16 @@ const FormResearchInstitute = ({ onAgregarInstitutoInvestigacion, onCerrarFormul
         <Form.Control type="file" accept="image/*" onChange={handleArchivoChange} />
       </Form.Group>
 
-      <Button variant="primary" type="submit">
-        {existingData ? 'Actualizar Instituto de Investigación' : 'Agregar Instituto de Investigación'}
+      <Button variant="primary" type="submit" disabled={isLoading}>
+        {isLoading ? (
+          <>
+            <Spinner animation="border" size="sm" /> Cargando...
+          </>
+        ) : (
+          <>
+            {existingData ? 'Actualizar Instituto de Investigación' : 'Agregar Instituto de Investigación'}
+          </>
+        )}
       </Button>
     </Form>
   );

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
 import { ServicioSociedadesCientificas } from '../../servicios/ServicioSociedadesCientificas';
 import ServicioImagenes from '../../servicios/ServicioImagenes';
+import { ServicioCarreras } from '../../servicios/ServicioCarreras';
+import { ServicioContacto } from '../../servicios/ServicioContacto';
 
 const FormScientificSocieties = ({ onAgregarSociedadCientifica, onCerrarFormulario, existingData }) => {
   const [nombre, setNombre] = useState('');
@@ -11,9 +14,14 @@ const FormScientificSocieties = ({ onAgregarSociedadCientifica, onCerrarFormular
   const [contactoId, setContactoId] = useState('');
   const [enlaceImagen, setEnlaceImagen] = useState(''); // Nuevo estado para almacenar el enlace de la imagen
   const [archivo, setArchivo] = useState(null);
+  const [carreras, setCarreras] = useState([]);
+  const [contactos, setContactos] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const servicioSociedadesCientificas = new ServicioSociedadesCientificas();
   const servicioImagenes = new ServicioImagenes();
+  const servicioCarrera = new ServicioCarreras();
+  const servicioContacto = new ServicioContacto();
 
   // Actualizar el estado del formulario si hay datos existentes
   useEffect(() => {
@@ -25,6 +33,37 @@ const FormScientificSocieties = ({ onAgregarSociedadCientifica, onCerrarFormular
       setEnlaceImagen(existingData.enlaceImagen);
     }
   }, [existingData]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const carrerasResponse = await servicioCarrera.getAllCarreras();
+        const contactosResponse = await servicioContacto.getAll();
+
+        if (Array.isArray(carrerasResponse.data) && Array.isArray(contactosResponse.data)) {
+          setCarreras(carrerasResponse.data);
+          setContactos(contactosResponse.data);
+
+          if (carrerasResponse.data.length > 0) {
+            setCarreraId(existingData ? existingData.carrera.carreraId : carrerasResponse.data[0].carreraId);
+          }
+
+          if (contactosResponse.data.length > 0) {
+            setContactoId(existingData ? existingData.contacto.contactoId : contactosResponse.data[0].contactoId);
+          }
+        } else {
+          console.error('La respuesta del servidor no contiene un array de datos:', carrerasResponse, contactosResponse);
+        }
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
+      }
+    }
+
+    // Verificar si las carreras y contactos ya se han cargado antes de hacer nuevas llamadas
+    if (carreras.length === 0 || contactos.length === 0) {
+      fetchData();
+    }
+  }, [servicioCarrera, servicioContacto, carreras, contactos, existingData]);
 
   const handleArchivoChange = async (e) => {
     const file = e.target.files[0];
@@ -51,8 +90,8 @@ const FormScientificSocieties = ({ onAgregarSociedadCientifica, onCerrarFormular
           ...existingData,
           nombre,
           enlaceWeb,
-          carrera: {carreraId: carreraId}, // Solo pasar el ID de carrera
-          contacto: {contactoId: contactoId}, // Solo pasar el ID de contacto
+          carrera: { carreraId },
+          contacto: { contactoId },
           enlaceImagen,
         });
       } else {
@@ -60,8 +99,8 @@ const FormScientificSocieties = ({ onAgregarSociedadCientifica, onCerrarFormular
         await servicioSociedadesCientificas.postSociedadCientifica({
           nombre,
           enlaceWeb,
-          carrera: {carreraId: carreraId}, // Solo pasar el ID de carrera
-          contacto: {contactoId: contactoId}, // Solo pasar el ID de contacto
+          carrera: { carreraId },
+          contacto: { contactoId },
           enlaceImagen,
         });
       }
@@ -77,7 +116,8 @@ const FormScientificSocieties = ({ onAgregarSociedadCientifica, onCerrarFormular
       onAgregarSociedadCientifica();
     } catch (error) {
       console.error('Error al procesar la Sociedad Científica:', error);
-      // Manejar el error aquí, puedes mostrar un mensaje al usuario si lo prefieres
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -104,23 +144,25 @@ const FormScientificSocieties = ({ onAgregarSociedadCientifica, onCerrarFormular
       </Form.Group>
 
       <Form.Group controlId="formCarreraId">
-        <Form.Label>ID de Carrera</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Ingrese el ID de la carrera"
-          value={carreraId}
-          onChange={(e) => setCarreraId(e.target.value)}
-        />
+        <Form.Label>Carrera</Form.Label>
+        <Form.Control as="select" value={carreraId} onChange={(e) => setCarreraId(e.target.value)}>
+          {carreras.map((carrera) => (
+            <option key={carrera.carreraId} value={carrera.carreraId}>
+              {carrera.nombre}
+            </option>
+          ))}
+        </Form.Control>
       </Form.Group>
 
       <Form.Group controlId="formContactoId">
-        <Form.Label>ID de Contacto</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Ingrese el ID de contacto"
-          value={contactoId}
-          onChange={(e) => setContactoId(e.target.value)}
-        />
+        <Form.Label>Contacto</Form.Label>
+        <Form.Control as="select" value={contactoId} onChange={(e) => setContactoId(e.target.value)}>
+          {contactos.map((contacto) => (
+            <option key={contacto.contactoId} value={contacto.contactoId}>
+              {contacto.nombre}
+            </option>
+          ))}
+        </Form.Control>
       </Form.Group>
 
       <Form.Group controlId="formArchivo">
@@ -128,8 +170,16 @@ const FormScientificSocieties = ({ onAgregarSociedadCientifica, onCerrarFormular
         <Form.Control type="file" accept="image/*" onChange={handleArchivoChange} />
       </Form.Group>
 
-      <Button variant="primary" type="submit">
-        {existingData ? 'Actualizar Sociedad Científica' : 'Agregar Sociedad Científica'}
+      <Button variant="primary" type="submit" disabled={isLoading}>
+        {isLoading ? (
+          <>
+            <Spinner animation="border" size="sm" /> Cargando...
+          </>
+        ) : (
+          <>
+            {existingData ? 'Actualizar Sociedad Científica' : 'Agregar Sociedad Científica'}
+          </>
+        )}
       </Button>
     </Form>
   );

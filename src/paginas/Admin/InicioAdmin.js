@@ -18,6 +18,8 @@ class InicioAdmin extends Component {
     this.state = {
       events: [],
       news: [],
+      facultad: [],
+      carrerasPorFacultad: {},
       showEventoForm: false,
       showNoticiaForm: false,
     };
