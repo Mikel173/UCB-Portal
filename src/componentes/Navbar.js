@@ -30,6 +30,7 @@ function NavbarComponent() {
                 {/* <NavDropdown.Item as={Link} to="/secciones-academicas">Secciones academicas</NavDropdown.Item> */}
                 <NavDropdown.Item as={Link} to="/admision-y-becas">Admision y becas</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/plataforma-en-linea">Plataforma de aprendizaje en linea</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/sedes">Sedes</NavDropdown.Item>
               </NavDropdown>
 
               <Nav.Link as={Link} to="/investigacion">Investigacion</Nav.Link>

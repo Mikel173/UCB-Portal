@@ -6,7 +6,7 @@ import '../App.css';
 const RecursosServicio = () => {
   return (
     <div>
-      <ImagePanel title="ORIENTACION VOCACIONAL"/>
+      <ImagePanel title="Orientacion Vocacional"/>
       <Componente />
       {/* Agrega aquí el contenido específico para la sección de recursos para estudiantes */}
     </div>

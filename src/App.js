@@ -5,6 +5,7 @@ import InicioAdmin from './paginas/Admin/InicioAdmin';
 import SeccionesAcademicas from './paginas/SeccionesAcademicas';
 import AdmisionYBecas from './paginas/AdmisionYBecas';
 import PlataformaEnLinea from './paginas/PlataformaEnLinea';
+import Sedes from './paginas/Sedes';
 import Investigacion from './paginas/Investigacion';
 import RecursosEstudiantes from './paginas/RecursosEstudiantes';
 import RecursosServicio from './paginas/RecursosServicio';
@@ -28,6 +29,7 @@ function App() {
         <Route path="/secciones-academicas" element={<NavbarComponent />} />
         <Route path="/admision-y-becas" element={<NavbarComponent />} />
         <Route path="/plataforma-en-linea" element={<NavbarComponent />} />
+        <Route path="/sedes" element={<NavbarComponent />} />
         <Route path="/investigacion" element={<NavbarComponent />} />
         <Route path="/recursos-estudiantes" element={<NavbarComponent />} />
         <Route path="/recursos-servicio" element={<NavbarComponent />} />
@@ -48,6 +50,7 @@ function App() {
         <Route path="/secciones-academicas" element={<SeccionesAcademicas />} />
         <Route path="/admision-y-becas" element={<AdmisionYBecas />} />
         <Route path="/plataforma-en-linea" element={<PlataformaEnLinea />} />
+        <Route path="/sedes" element={<Sedes />} />
         <Route path="/investigacion" element={<Investigacion />} />
         <Route path="/recursos-estudiantes" element={<RecursosEstudiantes />} />
         <Route path="/recursos-servicio" element={<RecursosServicio />} />
